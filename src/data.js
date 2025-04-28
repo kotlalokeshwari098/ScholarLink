@@ -1,0 +1,320 @@
+const scholarshipsData = [
+    {
+      country: "Singapore",
+      universities: [
+        {
+          name: "National University of Singapore (NUS)",
+          scholarships: [
+            {
+              name: "NUS Research Scholarship",
+              degreeLevel: "Master's/PhD",
+              eligibility: "Good academic record, full-time research-based program",
+              amount: "Full tuition + monthly stipend",
+              deadline: "January 31, 2025",
+              link: "https://www.nus.edu.sg/graduate-scholarships"
+            },
+            {
+              name: "NUS Graduate School Scholarship",
+              degreeLevel: "PhD",
+              eligibility: "Strong academic background, research interest",
+              amount: "Tuition + S$3,000 monthly",
+              deadline: "March 15, 2025",
+              link: "https://www.nus.edu.sg/graduate"
+            },
+            {
+              name: "ASEAN Graduate Scholarship",
+              degreeLevel: "Master's",
+              eligibility: "ASEAN nationality excluding Singapore, academic merit",
+              amount: "Tuition + partial living allowance",
+              deadline: "February 28, 2025",
+              link: "https://nus.edu.sg/aseanscholarship"
+            }
+          ]
+        },
+        {
+          name: "Nanyang Technological University (NTU)",
+          scholarships: [
+            {
+              name: "NTU Research Scholarship",
+              degreeLevel: "Master's/PhD",
+              eligibility: "Excellent academic results, research proposal",
+              amount: "Tuition + monthly stipend",
+              deadline: "March 1, 2025",
+              link: "https://www.ntu.edu.sg/admissions/graduate/financial-aid"
+            },
+            {
+              name: "NTU India Scholarship",
+              degreeLevel: "Master's",
+              eligibility: "Indian students with academic excellence",
+              amount: "Tuition + S$2,000 stipend",
+              deadline: "April 5, 2025",
+              link: "https://www.ntu.edu.sg/scholarships"
+            },
+            {
+              name: "ASEAN Graduate Scholarship (NTU)",
+              degreeLevel: "Master's",
+              eligibility: "Non-Singaporean ASEAN citizens",
+              amount: "Tuition + accommodation subsidy",
+              deadline: "March 10, 2025",
+              link: "https://www.ntu.edu.sg/graduate"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      country: "Canada",
+      universities: [
+        {
+          name: "University of Toronto",
+          scholarships: [
+            {
+              name: "Ontario Graduate Scholarship (OGS)",
+              degreeLevel: "Master's/PhD",
+              eligibility: "80%+ average, research program",
+              amount: "$15,000 per year",
+              deadline: "February 1, 2025",
+              link: "https://www.sgs.utoronto.ca/awards/ogs"
+            },
+            {
+              name: "University of Toronto Fellowship",
+              degreeLevel: "Master's",
+              eligibility: "Full-time grad student, academic merit",
+              amount: "Tuition + $5,000",
+              deadline: "March 15, 2025",
+              link: "https://future.utoronto.ca"
+            },
+            {
+              name: "Faculty of Computer Science Scholarship",
+              degreeLevel: "Master's",
+              eligibility: "Enrolled in CS program, high GPA",
+              amount: "$10,000",
+              deadline: "April 10, 2025",
+              link: "https://cs.toronto.edu"
+            }
+          ]
+        },
+        {
+          name: "University of British Columbia (UBC)",
+          scholarships: [
+            {
+              name: "UBC Four Year Doctoral Fellowship",
+              degreeLevel: "PhD",
+              eligibility: "Excellent academic record and research potential",
+              amount: "$18,200/year + tuition",
+              deadline: "March 1, 2025",
+              link: "https://www.grad.ubc.ca"
+            },
+            {
+              name: "UBC Master's International Tuition Award",
+              degreeLevel: "Master's",
+              eligibility: "International students, financial need",
+              amount: "Partial tuition waiver",
+              deadline: "April 30, 2025",
+              link: "https://students.ubc.ca"
+            },
+            {
+              name: "Graduate Dean’s Entrance Scholarship",
+              degreeLevel: "Master's",
+              eligibility: "Incoming full-time grad students",
+              amount: "$5,000",
+              deadline: "February 10, 2025",
+              link: "https://www.grad.ubc.ca/awards"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      country: "Germany",
+      universities: [
+        {
+          name: "Technical University of Munich (TUM)",
+          scholarships: [
+            {
+              name: "Deutschlandstipendium",
+              degreeLevel: "Bachelor's/Master's",
+              eligibility: "Merit-based, any nationality",
+              amount: "€300/month",
+              deadline: "June 15, 2025",
+              link: "https://www.tum.de/stipendium"
+            },
+            {
+              name: "TUM Scholarship for International Students",
+              degreeLevel: "Master's",
+              eligibility: "International students, financial need",
+              amount: "€500 to €1,500 per semester",
+              deadline: "May 30, 2025",
+              link: "https://www.tum.de/scholarships"
+            },
+            {
+              name: "DAAD STIBET",
+              degreeLevel: "Master's",
+              eligibility: "Foreign students with high GPA",
+              amount: "€750/month",
+              deadline: "March 20, 2025",
+              link: "https://www.daad.de"
+            }
+          ]
+        },
+        {
+          name: "RWTH Aachen University",
+          scholarships: [
+            {
+              name: "DAAD Development-Related Postgraduate Scholarships",
+              degreeLevel: "Master's",
+              eligibility: "Students from developing countries",
+              amount: "€850/month + travel + insurance",
+              deadline: "July 15, 2025",
+              link: "https://www.rwth-aachen.de"
+            },
+            {
+              name: "RWTH International Scholarship",
+              degreeLevel: "Master's",
+              eligibility: "Non-EU students, strong academic performance",
+              amount: "€1,000/month",
+              deadline: "April 30, 2025",
+              link: "https://www.rwth-aachen.de/go/id/aip"
+            },
+            {
+              name: "DAAD Study Scholarships",
+              degreeLevel: "Master's",
+              eligibility: "Graduates of all disciplines",
+              amount: "€861/month + travel allowance",
+              deadline: "August 1, 2025",
+              link: "https://www.daad.de"
+            }
+          ]
+        }
+      ]
+    },
+    {
+        country: "United States",
+        universities: [
+          {
+            name: "Harvard University",
+            scholarships: [
+              {
+                name: "Harvard Graduate Merit Scholarship",
+                degreeLevel: "Master's/PhD",
+                eligibility: "Outstanding academic achievement",
+                amount: "Full tuition + living stipend",
+                deadline: "January 15, 2025",
+                link: "https://gsas.harvard.edu"
+              },
+              {
+                name: "Harvard International Student Scholarship",
+                degreeLevel: "Master's",
+                eligibility: "Non-US citizen, financial need",
+                amount: "$20,000/year",
+                deadline: "March 1, 2025",
+                link: "https://financialaid.harvard.edu"
+              },
+              {
+                name: "Harvard Kennedy School Public Service Fellowship",
+                degreeLevel: "Master's",
+                eligibility: "Applicants in public service fields",
+                amount: "$15,000 + partial tuition",
+                deadline: "February 28, 2025",
+                link: "https://hks.harvard.edu"
+              }
+            ]
+          },
+          {
+            name: "Stanford University",
+            scholarships: [
+              {
+                name: "Knight-Hennessy Scholars",
+                degreeLevel: "All Graduate Programs",
+                eligibility: "Leadership potential, academic excellence",
+                amount: "Full funding including travel and living",
+                deadline: "October 9, 2025",
+                link: "https://knight-hennessy.stanford.edu"
+              },
+              {
+                name: "Stanford Fellowship in Engineering",
+                degreeLevel: "Master's/PhD",
+                eligibility: "Engineering students, academic merit",
+                amount: "$25,000/year + tuition",
+                deadline: "March 5, 2025",
+                link: "https://engineering.stanford.edu"
+              },
+              {
+                name: "Stanford Graduate Grant",
+                degreeLevel: "Master's",
+                eligibility: "Need-based for international students",
+                amount: "Partial tuition + housing support",
+                deadline: "April 10, 2025",
+                link: "https://financialaid.stanford.edu"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        country: "Australia",
+        universities: [
+          {
+            name: "University of Melbourne",
+            scholarships: [
+              {
+                name: "Melbourne Research Scholarship",
+                degreeLevel: "Master's/PhD",
+                eligibility: "High academic achievement and research potential",
+                amount: "Full tuition + stipend + relocation",
+                deadline: "October 31, 2025",
+                link: "https://scholarships.unimelb.edu.au"
+              },
+              {
+                name: "Graduate Access Scholarship",
+                degreeLevel: "Master's",
+                eligibility: "Low-income, disadvantaged background",
+                amount: "$5,000–$15,000",
+                deadline: "September 15, 2025",
+                link: "https://students.unimelb.edu.au"
+              },
+              {
+                name: "International Postgraduate Scholarship",
+                degreeLevel: "Master's",
+                eligibility: "International students, GPA > 80%",
+                amount: "$10,000/year",
+                deadline: "November 10, 2025",
+                link: "https://futurestudents.unimelb.edu.au"
+              }
+            ]
+          },
+          {
+            name: "University of Sydney",
+            scholarships: [
+              {
+                name: "Sydney Scholars Awards",
+                degreeLevel: "Bachelor's",
+                eligibility: "ATAR 95+, academic excellence",
+                amount: "$6,000/year",
+                deadline: "September 30, 2025",
+                link: "https://sydney.edu.au/scholarships"
+              },
+              {
+                name: "Vice-Chancellor's International Scholarship",
+                degreeLevel: "Master's",
+                eligibility: "International students, GPA > 85%",
+                amount: "$5,000 to $40,000",
+                deadline: "August 20, 2025",
+                link: "https://sydney.edu.au/future-students"
+              },
+              {
+                name: "Postgraduate Research Scholarship",
+                degreeLevel: "PhD",
+                eligibility: "Research proposal + academic merit",
+                amount: "Tuition + $35,000 stipend",
+                deadline: "October 1, 2025",
+                link: "https://sydney.edu.au/research"
+              }
+            ]
+          }
+        ]
+      }      
+  ];
+  
+  export default scholarshipsData;
+  
