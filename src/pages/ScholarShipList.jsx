@@ -1,40 +1,28 @@
 import React, { useEffect } from 'react'
 import scholarshipsData from '../data'
+import ScholarshipCard from '../components/ScholarshipCard';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
 function ScholarShipList() {
-const [datas,setDatas]=useState(' ')
+  const [dataInitial,setDataInitial]=useState([])
+  const [isFiltered,setIsFiltered]=useState(false);
+  const [filteredData,setFilteredData]=useState([])
 
-  const data = scholarshipsData.map((countryName) =>
-    countryName.universities.map((item) => (
-      item.scholarships.map((items) => (
-        // console.log(items)
-        <Link to={`/scholarshiplist/${item.name}`}>
-        <div className='border w-auto '>
-          <p>{countryName.country}</p>
-          <p>{item.name}</p>
-          <p className='font-bold'>scholarshipName: {items.name}</p>
-          <p>DegreeLevel: {items.degreeLevel}</p>
-          <p>amount: {items.amount}</p>
-          <p>deadline:{items.deadline}</p>
-        </div>
-         </Link> 
-        
-      ))
-    ))
-  )
+
+    // const data = 
+
+
+
   useEffect(()=>{
-    setDatas(data);
-
+    setDataInitial(scholarshipsData)
   },[])
-  console.log(data);
-  // console.log(countryName);
-  // console.log(scholarshipName)
-  // console.log(scholarshipType)
+ 
+  // console.log(scholarshipsData);
 
   function submitData(e){
     e.preventDefault();
+    setIsFiltered(true);
 
     const formData=new FormData(e.currentTarget)
 
@@ -55,26 +43,18 @@ const [datas,setDatas]=useState(' ')
      const scholarshipType=universitySelect[0].scholarships.filter((item)=>item.degreeLevel===type)
      console.log(scholarshipType);
 
-     const data=scholarshipType.length>0 ? 
-
-    scholarshipType.map((item) =>
-     <Link to={`/scholarshiplist/${item.name}`}>
-    <div className='border w-auto'>
-      <p>{country}</p>
-          <p>{universitySelect[0].name}</p>
-          <p className='font-bold'>scholarshipName: {item.name}</p>
-          <p>DegreeLevel: {item.degreeLevel}</p>
-          <p>amount: {item.amount}</p>
-          <p>deadline:{item.deadline}</p>
-    </div>
-    </Link>) 
-   
-    : "No matching found"
-   
-    console.log(data)
-    setDatas(data)
+     const fullScholarshipData = scholarshipType.map((sch) => ({
+      items: sch,
+      universityName: universitySelect,
+      countryName: countrySelect
+    }));
+  
+    setFilteredData(fullScholarshipData);
+    setIsFiltered(true);
     
   }
+  // console.log(filteredData);
+  console.log(dataInitial);
 
 
   return (
@@ -108,9 +88,27 @@ const [datas,setDatas]=useState(' ')
         <button>Submit</button>
 
       </form>
+      <button onClick={()=>setIsFiltered(false)}>clear</button>
 
       <div className='grid grid-cols-5 gap-5 '>
-        {datas}
+        {isFiltered ? 
+
+         filteredData.map((data,index) =>
+         <ScholarShipList 
+           items={data.items} countryName={data.country} universityName={data.universitySelect} id={items}/>
+         ) :
+         dataInitial.map((countryName) =>
+          countryName.universities.map((universityName) => (
+            universityName.scholarships.map((items) => (
+              // console.log(items)
+              
+               <ScholarshipCard universityName={universityName} countryName={countryName} items={items} id={items}/>
+              
+            ))
+          ))
+        )
+         
+        }
       </div>
     </div>
 

@@ -1,11 +1,14 @@
 const scholarshipsData = [
     {
       country: "Singapore",
+      id:'1',
       universities: [
         {
+          id:'1.1',
           name: "National University of Singapore (NUS)",
           scholarships: [
             {
+              id:'1.1.1',
               name: "NUS Research Scholarship",
               degreeLevel: "Master's/PhD",
               eligibility: "Good academic record, full-time research-based program",
@@ -14,6 +17,7 @@ const scholarshipsData = [
               link: "https://www.nus.edu.sg/graduate-scholarships"
             },
             {
+              id:'1.1.2',
               name: "NUS Graduate School Scholarship",
               degreeLevel: "PhD",
               eligibility: "Strong academic background, research interest",
@@ -22,6 +26,7 @@ const scholarshipsData = [
               link: "https://www.nus.edu.sg/graduate"
             },
             {
+              id:'1.1.3',
               name: "ASEAN Graduate Scholarship",
               degreeLevel: "Master's",
               eligibility: "ASEAN nationality excluding Singapore, academic merit",
@@ -32,9 +37,11 @@ const scholarshipsData = [
           ]
         },
         {
+          id:'1.2',
           name: "Nanyang Technological University (NTU)",
           scholarships: [
             {
+              id:'1.2.1',
               name: "NTU Research Scholarship",
               degreeLevel: "Master's/PhD",
               eligibility: "Excellent academic results, research proposal",
@@ -43,6 +50,7 @@ const scholarshipsData = [
               link: "https://www.ntu.edu.sg/admissions/graduate/financial-aid"
             },
             {
+              id:'1.2.2',
               name: "NTU India Scholarship",
               degreeLevel: "Master's",
               eligibility: "Indian students with academic excellence",
@@ -51,6 +59,7 @@ const scholarshipsData = [
               link: "https://www.ntu.edu.sg/scholarships"
             },
             {
+              id:'1.2.3',
               name: "ASEAN Graduate Scholarship (NTU)",
               degreeLevel: "Master's",
               eligibility: "Non-Singaporean ASEAN citizens",
@@ -63,12 +72,15 @@ const scholarshipsData = [
       ]
     },
     {
+      id:'2',
       country: "Canada",
       universities: [
         {
+          id:'2.1',
           name: "University of Toronto",
           scholarships: [
             {
+              id:'2.1.1',
               name: "Ontario Graduate Scholarship (OGS)",
               degreeLevel: "Master's/PhD",
               eligibility: "80%+ average, research program",
@@ -77,6 +89,7 @@ const scholarshipsData = [
               link: "https://www.sgs.utoronto.ca/awards/ogs"
             },
             {
+              id:'2.1.2',
               name: "University of Toronto Fellowship",
               degreeLevel: "Master's",
               eligibility: "Full-time grad student, academic merit",
@@ -85,6 +98,7 @@ const scholarshipsData = [
               link: "https://future.utoronto.ca"
             },
             {
+              id:'2.1.3',
               name: "Faculty of Computer Science Scholarship",
               degreeLevel: "Master's",
               eligibility: "Enrolled in CS program, high GPA",
@@ -95,9 +109,11 @@ const scholarshipsData = [
           ]
         },
         {
+          id:'2.2',
           name: "University of British Columbia (UBC)",
           scholarships: [
             {
+              id:'2.2.1',
               name: "UBC Four Year Doctoral Fellowship",
               degreeLevel: "PhD",
               eligibility: "Excellent academic record and research potential",
@@ -106,6 +122,7 @@ const scholarshipsData = [
               link: "https://www.grad.ubc.ca"
             },
             {
+              id:'2.2.2',
               name: "UBC Master's International Tuition Award",
               degreeLevel: "Master's",
               eligibility: "International students, financial need",
@@ -114,6 +131,7 @@ const scholarshipsData = [
               link: "https://students.ubc.ca"
             },
             {
+              id:'2.2.3',
               name: "Graduate Dean’s Entrance Scholarship",
               degreeLevel: "Master's",
               eligibility: "Incoming full-time grad students",
