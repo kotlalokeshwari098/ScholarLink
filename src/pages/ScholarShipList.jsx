@@ -18,8 +18,24 @@ function ScholarShipList() {
 
   // console.log(scholarshipsData);
   function toggleBookMark(id){
-    console.log(id)
+    const data = dataInitial.map((countryName) =>
+      // console.log(countryName.country)
+      countryName.universities.map((universityName) =>
+        // console.log(universityName)
+        universityName.scholarships.map((item, index) => {
+           if (item.id === id) {
+             return { ...item, bookmark: !item.bookmark }; // toggle
+           } else {
+             return item// leave unchanged
+           }
+  })
+      )
+    );
+
+    setBookMarkList(data);
+   
   }
+  console.log(bookMarkList)
 
   function submitData(e) {
     e.preventDefault();
@@ -60,7 +76,10 @@ function ScholarShipList() {
     console.log(filteredData);
   }
   // console.log(filteredData);
-  console.log(dataInitial);
+  useEffect(()=>{
+console.log(bookMarkList);
+    console.log(dataInitial);
+  },[])
 
   return (
     <div>

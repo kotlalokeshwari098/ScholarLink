@@ -7,6 +7,7 @@ import ScholarShipList from './pages/ScholarShipList'
 import ScholarShipInfo from './pages/ScholarShipInfo'
 import ScholarShipCompatibility from './pages/ScholarShipCompatablility'
 import AboutUs from './pages/AboutUs';
+import BookMark from './pages/BookMark'
 
 const routes=createBrowserRouter(createRoutesFromElements(
     
@@ -15,7 +16,8 @@ const routes=createBrowserRouter(createRoutesFromElements(
          <Route path='/scholarshiplist' element={<ScholarShipList />}/>
          <Route path='/scholarshiplist/:name' element={<ScholarShipInfo />}/>   
          <Route path='/scholarshiplist/:id/:name' element={<ScholarShipCompatibility />}/>    
-         <Route path='/about' element={<AboutUs />}/>    
+         <Route path='/about' element={<AboutUs />}/> 
+         <Route path='/bookmark' element={<BookMark />}/>   
 
      </Route>
    

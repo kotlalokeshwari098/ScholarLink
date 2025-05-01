@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import Button from "@mui/material/Button";
 
 function ScholarshipCard(prop) {
   // console.log(prop);
@@ -19,14 +20,14 @@ function ScholarshipCard(prop) {
           </div>
         </div>
       </Link>
-      <div className="">
+      <Button className="" to="/bookmark" component={Link}>
         <span
           className="material-symbols-outlined "
           onClick={() => prop.onClick(prop.id)}
         >
           bookmark
         </span>
-      </div>
+      </Button>
     </div>
   );
 }
