@@ -1,7 +1,13 @@
 import React from 'react'
 import {Stack,IconButton,Typography,Box} from "@mui/material"
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { myBookmark } from './ScholarShipList';
+import { useContext } from 'react';
+
+
 function BookMark() {
+  const data=useContext(myBookmark)
+  console.log(data);
   return (
     <>
        <Stack direction='row' alignItems="center">

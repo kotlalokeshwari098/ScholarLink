@@ -4,6 +4,10 @@ import ScholarshipCard from "../components/ScholarshipCard";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { nanoid } from "nanoid";
+import { createContext } from "react";
+import BookMark from "./BookMark";
+
+export const myBookmark = createContext();
 
 function ScholarShipList() {
   const [dataInitial, setDataInitial] = useState([]);
@@ -11,31 +15,42 @@ function ScholarShipList() {
   const [filteredData, setFilteredData] = useState([]);
   const [bookMarkList, setBookMarkList] = useState([]);
 
-
   useEffect(() => {
     setDataInitial(scholarshipsData);
   }, []);
 
   // console.log(scholarshipsData);
-  function toggleBookMark(id){
-    const data = dataInitial.map((countryName) =>
-      // console.log(countryName.country)
-      countryName.universities.map((universityName) =>
-        // console.log(universityName)
-        universityName.scholarships.map((item, index) => {
-           if (item.id === id) {
-             return { ...item, bookmark: !item.bookmark }; // toggle
-           } else {
-             return item// leave unchanged
-           }
-  })
-      )
-    );
+  function toggleBookMark(id) {
+  
+     const updatedData = dataInitial.map((country) => ({
+       ...country,
+       universities: country.universities.map((university) => ({
+         ...university,
+         scholarships: university.scholarships.map((item) =>
+           item.id === id ? { ...item, bookmark: !item.bookmark } : item
+         ),
+       })),
+     }));
 
-    setBookMarkList(data);
-   
+     setDataInitial(updatedData); // update main data
+
+     // Derive bookmark list fresh from updated data:
+     const updatedBookMarkList = [];
+     updatedData.forEach((country) => {
+       country.universities.forEach((university) => {
+         university.scholarships.forEach((item) => {
+           if (item.bookmark) {
+             updatedBookMarkList.push(item);
+           }
+         });
+       });
+     });
+
+     setBookMarkList(updatedBookMarkList);
+
+
   }
-  console.log(bookMarkList)
+  console.log(bookMarkList);
 
   function submitData(e) {
     e.preventDefault();
@@ -76,10 +91,10 @@ function ScholarShipList() {
     console.log(filteredData);
   }
   // console.log(filteredData);
-  useEffect(()=>{
-console.log(bookMarkList);
+  useEffect(() => {
+    console.log(bookMarkList);
     console.log(dataInitial);
-  },[])
+  }, []);
 
   return (
     <div>
@@ -127,37 +142,42 @@ console.log(bookMarkList);
         {isFiltered
           ? filteredData.map((data, index) => (
               // console.log(data)
-              <ScholarshipCard
-                key={index}
-                id={data.items.id}
-                //  items={data.items}
-                countryName={data.countryName}
-                universityName={data.universityName}
-                amount={data.items.amount}
-                deadline={data.items.deadline}
-                scholarshipName={data.items.name}
-                degreeLevel={data.items.degreeLevel}
-                onClick={toggleBookMark}
-              />
+              <myBookmark.Provider value={bookMarkList}>
+                <ScholarshipCard
+                  key={index}
+                  id={data.items.id}
+                  //  items={data.items}
+                  countryName={data.countryName}
+                  universityName={data.universityName}
+                  amount={data.items.amount}
+                  deadline={data.items.deadline}
+                  scholarshipName={data.items.name}
+                  degreeLevel={data.items.degreeLevel}
+                  onClick={toggleBookMark}
+                />
+               
+              </myBookmark.Provider>
             ))
           : dataInitial.map((countryName) =>
-            // console.log(countryName.country)
+              // console.log(countryName.country)
               countryName.universities.map((universityName) =>
                 // console.log(universityName)
                 universityName.scholarships.map((items, index) => (
                   // console.log(items)
-
-                  <ScholarshipCard
-                    key={index}
-                    id={items.id}
-                    universityName={universityName.name}
-                    countryName={countryName.country}
-                    amount={items.amount}
-                    deadline={items.deadline}
-                    scholarshipName={items.name}
-                    degreeLevel={items.degreeLevel}
-                    onClick={toggleBookMark}
-                  />
+                  <myBookmark.Provider value={bookMarkList}>
+                    <ScholarshipCard
+                      key={index}
+                      id={items.id}
+                      universityName={universityName.name}
+                      countryName={countryName.country}
+                      amount={items.amount}
+                      deadline={items.deadline}
+                      scholarshipName={items.name}
+                      degreeLevel={items.degreeLevel}
+                      onClick={toggleBookMark}
+                    />
+                 
+                  </myBookmark.Provider>
                 ))
               )
             )}

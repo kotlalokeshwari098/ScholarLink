@@ -2,9 +2,17 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import Button from "@mui/material/Button";
+import { useContext } from "react";
+import { myBookmark } from "../pages/ScholarShipList";
 
 function ScholarshipCard(prop) {
   // console.log(prop);
+  const value=useContext(myBookmark);
+  // console.log(value)
+  const flattened=value.flat(2)
+  // console.log(flattened)
+  const data=flattened.filter(item=>item.bookmark===true)
+  console.log(data)
  
   return (
     <div>
@@ -20,7 +28,7 @@ function ScholarshipCard(prop) {
           </div>
         </div>
       </Link>
-      <Button className="" to="/bookmark" component={Link}>
+      <Button className="" >
         <span
           className="material-symbols-outlined "
           onClick={() => prop.onClick(prop.id)}

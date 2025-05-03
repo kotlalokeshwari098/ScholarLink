@@ -6,6 +6,7 @@ function Header() {
     <div>
       <Link to='/'>Home</Link>
       <Link to='/scholarshiplist'>Scholarship</Link>
+      <Link to='/bookmark'>BookMark</Link>
       <Link to='/about'>About Us</Link>
     </div>
   )
