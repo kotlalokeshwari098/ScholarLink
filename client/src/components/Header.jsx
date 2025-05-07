@@ -8,6 +8,7 @@ function Header() {
       <Link to='/scholarshiplist'>Scholarship</Link>
       <Link to='/bookmark'>BookMark</Link>
       <Link to='/about'>About Us</Link>
+      <Link to='/sign'>Sign</Link>
     </div>
   )
 }
