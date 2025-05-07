@@ -1,8 +1,9 @@
 import express from 'express'
 import cors from 'cors'
-import route from './middleware/authmiddleware';
+import route from './routes/authRoutes.js';
 
 const app=express();
+app.use(express.json());
 app.use(cors())
 const PORT=process.env.PORT || 5000
 
@@ -11,5 +12,6 @@ app.get('/',(req,res)=>{
 })
 
 app.use('/auth',route)
+
 
 app.listen(PORT ,()=>console.log(`listening on port ${PORT}`))

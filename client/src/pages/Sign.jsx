@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 function Sign() {
   const [sign, setSign] = useState(true);
   const [account, setAccount] = useState("Already have account? Login");
-  // const [email,setEmail]=useState(' ');
-  // const [password,setPassword]=useState(' ');
   const [datas, setDatas] = useState({
     email: "",
     password: "",
   });
+  const navigate=useNavigate();
 
+  // toggling to show the suitable option for user to register/login
   function toggleRegister() {
     if (account === "Already have account? Login") {
       setSign(false);
@@ -20,7 +21,8 @@ function Sign() {
       setAccount("Already have account? Login");
     }
   }
-
+   
+  // collecting input from user
   function settingData(e) {
     const { name, value } = e.target;
     setDatas({
@@ -28,28 +30,49 @@ function Sign() {
       [name]: value,
     });
   }
+
+  // sending the data to backend for register/login
   function submitData(){
+    let token;
     if(sign){
-        axios.post('http://localhost:5000/auth/register',{
+        axios.post('http://localhost:5656/auth/register',{
            email:datas.email,
            password:datas.password
         },{
           headers:{
           'Content-Type':'application/json'
         }
-      })
+      }).then(response=>
+        localStorage.setItem('jwtToken', response.data.token))
     }
+
     else{
-      axios.post("http://localhost:5000/auth/login" ,{
-        email:datas.email,
-        password:datas.password
-      },{
-        headers:{
-          "Content-Type":"application/json"
+      axios
+        .post(
+          "http://localhost:5656/auth/login",
+          {
+            email: "loki@gmail.com",
+            password: datas.password,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization:jwtToken
+            },
+          }
+        )
+        .then((response) =>
+          token=response.data.token
+          
+        );
+        if(token){
+          localStorage.setItem("jwtToken", response.data.token);
+          navigate('/home');
         }
-      });
     }
   }
+
+
   return (
     <div>
       <form action="" onSubmit={(e)=>e.preventDefault()}>
