@@ -46,16 +46,18 @@ route.post("/register", async(req, res) => {
   }
 });
 
-route.post("/login", (req, res) => {
+route.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   try {
     // const getUser = db.prepare("SELECT * FROM users WHERE username=(?)");
     // const user = getUser.run(email);
     const getUser=`SELECT * FROM userdata WHERE email=$1`
-    const user=pool.query(getUser,email);
+    const user=await pool.query(getUser,[email]);
+    console.log(user);
+    console.log(user.password)
 
-    if (!user) {
+    if (user.rows.length===0) {
       return res.status(404).send({ message: "user not found" });
     }
 

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 function Sign() {
   const [sign, setSign] = useState(true);
@@ -9,6 +10,7 @@ function Sign() {
     email: "",
     password: "",
   });
+  const [result,setResult]=useState('')
   const navigate=useNavigate();
   
 
@@ -45,7 +47,7 @@ function Sign() {
         }
       }).then(response=>{
         localStorage.setItem('jwtToken', response.data.token)
-        navigate("/home");
+        navigate("/");
       
     })
        
@@ -56,26 +58,34 @@ function Sign() {
         .post(
           "http://localhost:5656/auth/login",
           {
-            email: "loki@gmail.com",
+            email: datas.email,
             password: datas.password,
           }
         )
         .then((response) =>{
-          token=response.data.token
+          if(response.status===200){
+            console.log(response);
+            token = response.data.token;
             localStorage.setItem("jwtToken", response.data.token);
-            navigate("/home");
+            navigate("/");
+            setResult("Login Successful!")
+          }
+         else setResult(response.data.message)
           }
         );
         
     }
   }
-
+useEffect(()=>{
+  console.log(result)
+},[result])
 
   return (
     <div>
       <form action="" onSubmit={(e)=>e.preventDefault()}>
         <h3>{sign ? "Sign Up" : "Login In"}</h3>
         {/* <h2>create an account!</h2> */}
+        <p>{result}</p>
         <div>
           <input
             type="text"
