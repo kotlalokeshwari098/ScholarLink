@@ -10,6 +10,7 @@ function Sign() {
     password: "",
   });
   const navigate=useNavigate();
+  
 
   // toggling to show the suitable option for user to register/login
   function toggleRegister() {
@@ -42,8 +43,12 @@ function Sign() {
           headers:{
           'Content-Type':'application/json'
         }
-      }).then(response=>
-        localStorage.setItem('jwtToken', response.data.token))
+      }).then(response=>{
+        localStorage.setItem('jwtToken', response.data.token)
+        navigate("/home");
+      
+    })
+       
     }
 
     else{
@@ -53,22 +58,15 @@ function Sign() {
           {
             email: "loki@gmail.com",
             password: datas.password,
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization:jwtToken
-            },
           }
         )
-        .then((response) =>
+        .then((response) =>{
           token=response.data.token
-          
+            localStorage.setItem("jwtToken", response.data.token);
+            navigate("/home");
+          }
         );
-        if(token){
-          localStorage.setItem("jwtToken", response.data.token);
-          navigate('/home');
-        }
+        
     }
   }
 
