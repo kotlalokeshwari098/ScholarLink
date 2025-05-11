@@ -1,0 +1,5 @@
+### get scholarship data
+GET http://localhost:5656/scholarships
+
+###get by applying filters
+GET http://localhost:5656/scholarshipfilter?country=Singapore&university=Nanyang%20Technological%20University%20(NTU)&degree=PhD

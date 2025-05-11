@@ -7,12 +7,12 @@ import { myBookmark } from "../pages/ScholarShipList";
 
 function ScholarshipCard(prop) {
   // console.log(prop);
-  const value=useContext(myBookmark);
-  // console.log(value)
-  const flattened=value.flat(2)
-  // console.log(flattened)
-  const data=flattened.filter(item=>item.bookmark===true)
-  console.log(data)
+  // const value=useContext(myBookmark);
+  // // console.log(value)
+  // const flattened=value.flat(2)
+  // // console.log(flattened)
+  // const data=flattened.filter(item=>item.bookmark===true)
+  // console.log(data)
  
   return (
     <div>

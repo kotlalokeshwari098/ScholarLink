@@ -6,6 +6,7 @@ import { useState } from "react";
 import { nanoid } from "nanoid";
 import { createContext } from "react";
 import BookMark from "./BookMark";
+import axios from 'axios'
 
 export const myBookmark = createContext();
 
@@ -16,43 +17,26 @@ function ScholarShipList() {
   const [bookMarkList, setBookMarkList] = useState([]);
 
   useEffect(() => {
-    setDataInitial(scholarshipsData);
+     (async()=>{
+      try{
+         const response=await axios.get('http://localhost:5656/scholarships')
+         console.log(response.data.rows)
+         setDataInitial(response.data.rows)
+
+      }
+      catch(err){
+        console.log(err.message);
+      }
+     })()
   }, []);
 
   // console.log(scholarshipsData);
-  function toggleBookMark(id) {
-  
-     const updatedData = dataInitial.map((country) => ({
-       ...country,
-       universities: country.universities.map((university) => ({
-         ...university,
-         scholarships: university.scholarships.map((item) =>
-           item.id === id ? { ...item, bookmark: !item.bookmark } : item
-         ),
-       })),
-     }));
+  // function toggleBookMark(id) {
 
-     setDataInitial(updatedData); // update main data
+  // }
+  // console.log(bookMarkList);
 
-     // Derive bookmark list fresh from updated data:
-     const updatedBookMarkList = [];
-     updatedData.forEach((country) => {
-       country.universities.forEach((university) => {
-         university.scholarships.forEach((item) => {
-           if (item.bookmark) {
-             updatedBookMarkList.push(item);
-           }
-         });
-       });
-     });
-
-     setBookMarkList(updatedBookMarkList);
-
-
-  }
-  console.log(bookMarkList);
-
-  function submitData(e) {
+  async function submitData(e) {
     e.preventDefault();
     setIsFiltered(true);
 
@@ -61,40 +45,19 @@ function ScholarShipList() {
     const country = formData.get("country");
     const universityName = formData.get("universityName");
     const type = formData.get("type");
-    console.log(country, universityName, type);
-    console.log(Object.fromEntries(formData));
-    const countrySelect = scholarshipsData.filter(
-      (item) => item.country === country
-    );
-    console.log(countrySelect[0]);
-    console.log(countrySelect[0].country);
-
-    const universitySelect = countrySelect[0].universities.filter(
-      (item) => item.name === universityName
-    );
-    console.log(universitySelect[0].name);
-
-    const scholarshipType = universitySelect[0].scholarships.filter(
-      (item) => item.degreeLevel === type
-    );
-    console.log(scholarshipType);
-
-    const fullScholarshipData = scholarshipType.map((sch) => ({
-      items: sch,
-      universityName: universitySelect[0].name,
-      countryName: countrySelect[0].country,
-    }));
-    console.log(fullScholarshipData);
-
-    setFilteredData(fullScholarshipData);
-
-    console.log(filteredData);
+   
+    try{
+      const result = await axios.get(`http://localhost:5656/scholarshipfilter?country=${country}&university=${universityName}&degree=${type}`);
+        console.log(result)
+        setFilteredData(result.data.rows);
+    }
+    catch(err){
+      console.log(err.status)
+      console.log(err.message);
+    }
+   
   }
-  // console.log(filteredData);
-  useEffect(() => {
-    console.log(bookMarkList);
-    console.log(dataInitial);
-  }, []);
+ 
 
   return (
     <div>
@@ -140,47 +103,38 @@ function ScholarShipList() {
 
       <div className="grid grid-cols-5 gap-5 ">
         {isFiltered
-          ? filteredData.map((data, index) => (
+          ? filteredData.map((item) => (
               // console.log(data)
-              <myBookmark.Provider value={bookMarkList}>
-                <ScholarshipCard
-                  key={index}
-                  id={data.items.id}
-                  //  items={data.items}
-                  countryName={data.countryName}
-                  universityName={data.universityName}
-                  amount={data.items.amount}
-                  deadline={data.items.deadline}
-                  scholarshipName={data.items.name}
-                  degreeLevel={data.items.degreeLevel}
-                  onClick={toggleBookMark}
-                />
-               
-              </myBookmark.Provider>
+              // <myBookmark.Provider value={bookMarkList}>
+              <ScholarshipCard
+                // key={index}
+                // id={data.items.id}
+                //  items={data.items}
+                universityName={item.university_name}
+                countryName={item.country_name}
+                amount={item.amount}
+                deadline={item.deadline}
+                scholarshipName={item.scholarship_name}
+                degreeLevel={item.degree}
+                // onClick={toggleBookMark}
+                eligible={item.eligible}
+              />
+              // </myBookmark.Provider>
             ))
-          : dataInitial.map((countryName) =>
-              // console.log(countryName.country)
-              countryName.universities.map((universityName) =>
-                // console.log(universityName)
-                universityName.scholarships.map((items, index) => (
-                  // console.log(items)
-                  <myBookmark.Provider value={bookMarkList}>
-                    <ScholarshipCard
-                      key={index}
-                      id={items.id}
-                      universityName={universityName.name}
-                      countryName={countryName.country}
-                      amount={items.amount}
-                      deadline={items.deadline}
-                      scholarshipName={items.name}
-                      degreeLevel={items.degreeLevel}
-                      onClick={toggleBookMark}
-                    />
-                 
-                  </myBookmark.Provider>
-                ))
-              )
-            )}
+          : dataInitial.map((item) => (
+              <ScholarshipCard
+                // key={index}
+                // id={item.id}
+                universityName={item.university_name}
+                countryName={item.country_name}
+                amount={item.amount}
+                deadline={item.deadline}
+                scholarshipName={item.scholarship_name}
+                degreeLevel={item.degree}
+                // onClick={toggleBookMark}
+                eligible={item.eligible}
+              />
+            ))}
       </div>
     </div>
   );
