@@ -47,7 +47,7 @@ Many students struggle to find scholarships that suit their profiles and often m
 
 | Layer       | Technology                  |
 | ----------- | --------------------------- |
-| 🌐 Frontend | React.js                    |
+| 🌐 Frontend | tailwincss,React.js        |
 | 🖥 Backend  | Node.js with Express.js     |
 | 🗄 Database | PostgreSQL                  |
 | 🔐 Auth     | JWT & Bcrypt for security   |
