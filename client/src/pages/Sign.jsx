@@ -47,7 +47,7 @@ function Sign() {
         }
       }).then(response=>{
         localStorage.setItem('jwtToken', response.data.token)
-        navigate("/");
+        navigate("/dashboard");
       
     })
        
@@ -67,8 +67,8 @@ function Sign() {
             console.log(response);
             token = response.data.token;
             localStorage.setItem("jwtToken", response.data.token);
-            navigate("/dashboard");
             setResult("Login Successful!")
+            navigate("/dashboard");
           }
          else setResult(response.data.message)
           }

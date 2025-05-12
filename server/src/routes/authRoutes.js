@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 // import db from "../db.js";
 import jwt from "jsonwebtoken";
 import pool from "../database/db.js";
+import { verifyToken } from "../middleware/authmiddleware.js";
 
 const route = Router();
 
@@ -46,6 +47,7 @@ route.post("/register", async(req, res) => {
   }
 });
 
+
 route.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
@@ -79,24 +81,8 @@ route.post("/login", async (req, res) => {
   }
 });
 
-const verifyToken=async (req,res,next)=>{
-  try{
-    const token= req.headers['authorization'].split(' ')[1]
-    if(!token){
-      return res.status(403).json({message:"No Token Provided"})
-    }
-    const decoded=jwt.verify(token,process.env.JWT_SECRET)
-    console.log(decoded.id)
-    req.userId=decoded.id;
-    console.log(req.userId)
-    next();
-    
-  }catch(err){
-    console.error("Token verification error:", err);
-    return res.status(500).json({message:"Server error"})
-  }
-}
 
+// verifytoken to verify whether user logged in or not
 route.get('/dashboard',verifyToken,async(req,res)=>{
     try{
       const checkid = `SELECT * FROM userdata WHERE id =$1`;
