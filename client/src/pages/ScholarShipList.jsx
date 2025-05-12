@@ -103,12 +103,12 @@ function ScholarShipList() {
 
       <div className="grid grid-cols-5 gap-5 ">
         {isFiltered
-          ? filteredData.map((item) => (
+          ? filteredData.map((item,index) => (
               // console.log(data)
               // <myBookmark.Provider value={bookMarkList}>
               <ScholarshipCard
-                // key={index}
-                // id={data.items.id}
+                key={index}
+                id={index}
                 //  items={data.items}
                 universityName={item.university_name}
                 countryName={item.country_name}
@@ -116,22 +116,22 @@ function ScholarShipList() {
                 deadline={item.deadline}
                 scholarshipName={item.scholarship_name}
                 degreeLevel={item.degree}
-                // onClick={toggleBookMark}
+                onClick={()=>toggleBookMark(item.id)}
                 eligible={item.eligible}
               />
               // </myBookmark.Provider>
             ))
-          : dataInitial.map((item) => (
+          : dataInitial.map((item,index) => (
               <ScholarshipCard
-                // key={index}
-                // id={item.id}
+                key={index}
+                id={item.id}
                 universityName={item.university_name}
                 countryName={item.country_name}
                 amount={item.amount}
                 deadline={item.deadline}
                 scholarshipName={item.scholarship_name}
                 degreeLevel={item.degree}
-                // onClick={toggleBookMark}
+                onClick={()=>toggleBookMark(item.id)}
                 eligible={item.eligible}
               />
             ))}

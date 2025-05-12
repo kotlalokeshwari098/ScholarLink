@@ -67,7 +67,7 @@ function Sign() {
             console.log(response);
             token = response.data.token;
             localStorage.setItem("jwtToken", response.data.token);
-            navigate("/");
+            navigate("/dashboard");
             setResult("Login Successful!")
           }
          else setResult(response.data.message)
@@ -83,7 +83,7 @@ useEffect(()=>{
   return (
     <div>
       <form action="" onSubmit={(e)=>e.preventDefault()}>
-        <h3>{sign ? "Sign Up" : "Login In"}</h3>
+        <h3 className="text-lg font-bold mb-4">{sign ? "Sign Up" : "Login In"}</h3>
         {/* <h2>create an account!</h2> */}
         <p>{result}</p>
         <div>

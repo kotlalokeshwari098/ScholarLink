@@ -16,7 +16,7 @@ function ScholarshipCard(prop) {
  
   return (
     <div>
-      <Link to={`/scholarshiplist/${prop.scholarshipName}`}>
+      <Link to={`/scholarshiplist/${prop.id}`}>
         <div className="border w-auto flex ">
           <div>
             <p>country name:{prop.countryName}</p>

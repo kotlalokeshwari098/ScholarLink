@@ -9,6 +9,7 @@ import ScholarShipCompatibility from './pages/ScholarShipCompatablility'
 import AboutUs from './pages/AboutUs';
 import BookMark from './pages/BookMark'
 import Sign from './pages/Sign';
+import DashBoard from './pages/DashBoard';
 
 const routes=createBrowserRouter(createRoutesFromElements(
     
@@ -19,7 +20,8 @@ const routes=createBrowserRouter(createRoutesFromElements(
          <Route path='/scholarshiplist/:id/:name' element={<ScholarShipCompatibility />}/>    
          <Route path='/about' element={<AboutUs />}/> 
          <Route path='/bookmark' element={<BookMark />}/>   
-         <Route path='/sign' element={<Sign />}/>   
+         <Route path='/sign' element={<Sign />}/> 
+         <Route path='/dashboard' element={<DashBoard />}/>  
 
      </Route>
    

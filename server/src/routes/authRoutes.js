@@ -61,13 +61,13 @@ route.post("/login", async (req, res) => {
       return res.status(404).send({ message: "user not found" });
     }
 
-    const passwordValid = bcrypt.compare(password, user.password);
+    const passwordValid =await bcrypt.compare(password, user.rows[0].password);
 
     if (!passwordValid) {
       return res.status(401).send({ message: "Invalid Password" });
     }
 
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ id: user.rows[0].id }, process.env.JWT_SECRET, {
       expiresIn: "24h",
     });
 
@@ -78,5 +78,39 @@ route.post("/login", async (req, res) => {
     res.sendStatus(503);
   }
 });
+
+const verifyToken=async (req,res,next)=>{
+  try{
+    const token= req.headers['authorization'].split(' ')[1]
+    if(!token){
+      return res.status(403).json({message:"No Token Provided"})
+    }
+    const decoded=jwt.verify(token,process.env.JWT_SECRET)
+    console.log(decoded.id)
+    req.userId=decoded.id;
+    console.log(req.userId)
+    next();
+    
+  }catch(err){
+    console.error("Token verification error:", err);
+    return res.status(500).json({message:"Server error"})
+  }
+}
+
+route.get('/dashboard',verifyToken,async(req,res)=>{
+    try{
+      const checkid = `SELECT * FROM userdata WHERE id =$1`;
+      const result = await pool.query(checkid, [req.userId]);
+
+      if (result.rows.length === 0) {
+        return res.status(500).json({ error: "user not existed" });
+      }
+      return res.status(201).json({user:result})
+  
+    }catch(err){
+      console.error("Error in /dashboard:", err);
+      return res.status(500).json({message:"Server error"})
+    }
+})
 
 export default route;

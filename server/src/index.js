@@ -13,6 +13,24 @@ app.get('/',(req,res)=>{
 })
 app.get('/scholarships',async (req,res)=>{
      const result = `
+       SELECT 
+      c.name AS country_name, 
+      u.name AS university_name, 
+      s.name AS scholarship_name,
+      s.degree,s.eligible,s.amount,s.deadline,s.link,s.id
+      FROM  
+      country c JOIN university u ON c.id=u.country_id 
+      JOIN scholarship s ON u.id=s.university_id order by id
+`;
+    const resul=await pool.query(result)
+    console.log(resul)
+    res.json(resul)
+})
+
+app.get('/scholarships/:id',async (req,res)=>{
+  const id=req.params.id
+  console.log(id)
+     const result = `
       SELECT 
       c.name AS country_name, 
       u.name AS university_name, 
@@ -20,8 +38,9 @@ app.get('/scholarships',async (req,res)=>{
       s.degree,s.eligible,s.amount,s.deadline,s.link
       FROM  
       country c JOIN university u ON c.id=u.country_id 
-      JOIN scholarship s ON u.id=s.university_id`;
-    const resul=await pool.query(result)
+      JOIN scholarship s ON u.id=s.university_id
+      WHERE s.id=$1`;
+    const resul=await pool.query(result,[id])
     console.log(resul)
     res.json(resul)
 })

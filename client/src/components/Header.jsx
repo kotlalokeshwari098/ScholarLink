@@ -5,6 +5,7 @@ function Header() {
   return (
     <div>
       <Link to='/'>Home</Link>
+      <Link to='/dashboard'>Dashboard</Link>
       <Link to='/scholarshiplist'>Scholarship</Link>
       <Link to='/bookmark'>BookMark</Link>
       <Link to='/about'>About Us</Link>

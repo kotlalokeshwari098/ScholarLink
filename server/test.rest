@@ -3,3 +3,23 @@ GET http://localhost:5656/scholarships
 
 ###get by applying filters
 GET http://localhost:5656/scholarshipfilter?country=Singapore&university=Nanyang%20Technological%20University%20(NTU)&degree=PhD
+
+###for bookmarks
+POST 
+Content-Type: 
+Authorization: $2b$08$W866KIlQRo.mBX7vt66UNeSeWlcUyNwupG8y0y8ZSlpJi1CwO7Izm
+
+###
+POST http://localhost:5656/auth/login
+Content-Type: application/json
+
+{
+    "email":"b@b.com",
+    "password":"1234"
+}
+
+###
+GET http://localhost:5656/dashboard
+
+###get scholarship single ones info
+GET http://localhost:5656/scholarships/2
