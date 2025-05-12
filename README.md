@@ -17,27 +17,27 @@ Many students struggle to find scholarships that suit their profiles and often m
 
 ## 🚀 **Features**
 
-### 🔐 1. User Authentication
+###  1. User Authentication
 
 * Secure **sign-up** and **login** system using **JWT**.
 * Passwords hashed with **Bcrypt**.
 * Users can manage their profiles and track applied scholarships.
 
-### 🎯 2. Scholarship Listings & Smart Search
+###  2. Scholarship Listings & Smart Search
 
 * Browse a diverse range of scholarships from global universities, organizations, and governments.
 * 🔎 **Search and filter** by name, degree level, country, eligibility, and more.
 * 📄 View detailed scholarship info including **eligibility**, **award amount**, and **application link**.
 
-### 🧪 3. Compatibility Testing *(Coming Soon!)*
+###  3. Compatibility Testing *(Coming Soon!)*
 
 * Automatically compare user profiles (degree level, age, qualifications) with scholarship requirements to check eligibility.
 
-### ⏰ 4. Deadline Tracking *(Coming Soon!)*
+###  4. Deadline Tracking *(Coming Soon!)*
 
 * Get reminders and alerts for scholarship deadlines so users never miss important dates.
 
-### 📊 5. Application Status Tracking *(Coming Soon!)*
+###  5. Application Status Tracking *(Coming Soon!)*
 
 * Track scholarship application status as: `Applied`, `Under Review`, `Accepted`, or `Rejected`.
 
