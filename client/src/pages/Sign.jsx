@@ -1,31 +1,29 @@
-import React, { useState } from "react";
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
 function Sign() {
   const [sign, setSign] = useState(true);
-  const [account, setAccount] = useState("Already have account? Login");
+  const [account, setAccount] = useState("Already have an account? Login");
   const [datas, setDatas] = useState({
     email: "",
     password: "",
   });
-  const [result,setResult]=useState('')
-  const navigate=useNavigate();
-  
+  const [result, setResult] = useState("");
+  const navigate = useNavigate();
 
-  // toggling to show the suitable option for user to register/login
+  // Toggle between register and login
   function toggleRegister() {
-    if (account === "Already have account? Login") {
+    if (account === "Already have an account? Login") {
       setSign(false);
       setAccount("Don't have an account? Sign Up");
     } else {
       setSign(true);
-      setAccount("Already have account? Login");
+      setAccount("Already have an account? Login");
     }
   }
-   
-  // collecting input from user
+
+  // Collecting input from user
   function settingData(e) {
     const { name, value } = e.target;
     setDatas({
@@ -34,80 +32,96 @@ function Sign() {
     });
   }
 
-  // sending the data to backend for register/login
-  function submitData(){
-    let token;
-    if(sign){
-        axios.post('http://localhost:5656/auth/register',{
-           email:datas.email,
-           password:datas.password
-        },{
-          headers:{
-          'Content-Type':'application/json'
-        }
-      }).then(response=>{
-        localStorage.setItem('jwtToken', response.data.token)
-        navigate("/dashboard");
-      
-    })
-       
-    }
-
-    else{
+  // Sending the data to backend for register/login
+  function submitData() {
+    if (sign) {
       axios
         .post(
-          "http://localhost:5656/auth/login",
+          "http://localhost:5656/auth/register",
           {
             email: datas.email,
             password: datas.password,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
           }
         )
-        .then((response) =>{
-          if(response.status===200){
-            console.log(response);
-            token = response.data.token;
+        .then((response) => {
+          localStorage.setItem("jwtToken", response.data.token);
+          navigate("/dashboard");
+        });
+    } else {
+      axios
+        .post("http://localhost:5656/auth/login", {
+          email: datas.email,
+          password: datas.password,
+        })
+        .then((response) => {
+          if (response.status === 200) {
             localStorage.setItem("jwtToken", response.data.token);
-            setResult("Login Successful!")
+            setResult("Login Successful!");
             navigate("/dashboard");
+          } else {
+            setResult(response.data.message);
           }
-         else setResult(response.data.message)
-          }
-        );
-        
+        });
     }
   }
-useEffect(()=>{
-  console.log(result)
-},[result])
+
+  useEffect(() => {
+    console.log(result);
+  }, [result]);
 
   return (
-    <div>
-      <form action="" onSubmit={(e)=>e.preventDefault()}>
-        <h3 className="text-lg font-bold mb-4">{sign ? "Sign Up" : "Login In"}</h3>
-        {/* <h2>create an account!</h2> */}
-        <p>{result}</p>
-        <div>
-          <input
-            type="text"
-            placeholder="Email"
-            onChange={settingData}
-            value={datas.email}
-            name='email'
-          />
-          <input
-            type="password"
-            placeholder="*******"
-            onChange={settingData}
-            value={datas.password}
-            name="password"
-          />
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+        <h3 className="text-2xl font-bold text-center mb-6">
+          {sign ? "Sign Up" : "Login"}
+        </h3>
+        <p className="text-center text-red-500 mb-4">{result}</p>
+        <form
+          action=""
+          onSubmit={(e) => e.preventDefault()}
+          className="space-y-4"
+        >
+          <div>
+            <input
+              type="text"
+              placeholder="Email"
+              onChange={settingData}
+              value={datas.email}
+              name="email"
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <div>
+            <input
+              type="password"
+              placeholder="Password"
+              onChange={settingData}
+              value={datas.password}
+              name="password"
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <button
+            onClick={submitData}
+            className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+          >
+            Submit
+          </button>
+        </form>
+        <div className="text-center mt-4">
+          <div
+            onClick={toggleRegister}
+            className="text-blue-500 cursor-pointer hover:underline"
+          >
+            {account}
+          </div>
         </div>
-
-        <button onClick={submitData}>submit</button>
-        <div className="">
-          <div onClick={toggleRegister}>{account}</div>
-        </div>
-      </form>
+      </div>
     </div>
   );
 }
