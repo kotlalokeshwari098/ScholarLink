@@ -12,13 +12,15 @@
 // export default db;
 
 import {Pool} from 'pg'
+import dotenv from "dotenv";
+dotenv.config();
 
 const pool=new Pool({
-   host:'localhost',
-   user:"postgres",
-   port:5432,
-   password:"openliki09",
-   database:"scholarlink"
+   host:process.env.HOSTNAME,
+   user:process.env.USERNAME_DB,
+   port:process.env.PORT_NUMBER,
+   password:process.env.PASSWORD,
+   database:process.env.DATABASE_NAME
 })
 
 pool.connect().then(()=>console.log("connected"))

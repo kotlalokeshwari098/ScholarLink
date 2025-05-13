@@ -22,4 +22,4 @@ Content-Type: application/json
 GET http://localhost:5656/dashboard
 
 ###get scholarship single ones info
-GET http://localhost:5656/scholarships/2
+GET http://localhost:5656/scholarshiplist/1

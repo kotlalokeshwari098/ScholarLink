@@ -27,7 +27,7 @@ app.get('/scholarships',async (req,res)=>{
     res.json(resul)
 })
 
-app.get('/scholarships/:id',async (req,res)=>{
+app.get('/scholarshiplist/:id',async (req,res)=>{
   const id=req.params.id
   console.log(id)
      const result = `
@@ -35,7 +35,7 @@ app.get('/scholarships/:id',async (req,res)=>{
       c.name AS country_name, 
       u.name AS university_name, 
       s.name AS scholarship_name,
-      s.degree,s.eligible,s.amount,s.deadline,s.link
+      s.degree,s.eligible,s.amount,s.deadline,s.link,s.criteria
       FROM  
       country c JOIN university u ON c.id=u.country_id 
       JOIN scholarship s ON u.id=s.university_id

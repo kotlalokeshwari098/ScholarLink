@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 // import db from "../db.js";
 import jwt from "jsonwebtoken";
 import pool from "../database/db.js";
-import { verifyToken } from "../middleware/authmiddleware.js";
+import { verifyLogin } from "../middleware/authmiddleware.js";
 
 const route = Router();
 
@@ -82,8 +82,8 @@ route.post("/login", async (req, res) => {
 });
 
 
-// verifytoken to verify whether user logged in or not
-route.get('/dashboard',verifyToken,async(req,res)=>{
+// verifyLogin to verify whether user logged in or not
+route.get('/dashboard',verifyLogin,async(req,res)=>{
     try{
       const checkid = `SELECT * FROM userdata WHERE id =$1`;
       const result = await pool.query(checkid, [req.userId]);
