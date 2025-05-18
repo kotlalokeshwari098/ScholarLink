@@ -8,10 +8,10 @@ function BookMark() {
   const token=localStorage.getItem('jwtToken')
 
   useEffect(() => {
-    // Simulate loading bookmarks
+  
     setTimeout(async() => {
       setLoading(false);
-      // This would be replaced with actual API call
+     
       try{
         let bookmarksData = await axios.get(
           "http://localhost:5656/auth/bookmark",
@@ -157,63 +157,7 @@ function BookMark() {
           </div>
         )}
 
-        {/* Sample Bookmarked Item (for preview only) */}
-        {/* {bookmarks.length === 0 && !loading && (
-          <div className="mt-10 border-t pt-10">
-            <h3 className="text-lg font-medium text-gray-700 mb-4">
-              Example of a bookmarked scholarship:
-            </h3>
-
-            <div className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
-              <div className="h-2 bg-blue-500"></div>
-              <div className="p-6">
-                <div className="flex justify-between items-start mb-3">
-                  <div>
-                    <div className="flex gap-2 mb-2">
-                      <span className="bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded">
-                        Singapore
-                      </span>
-                      <span className="bg-green-100 text-green-800 text-xs px-2 py-0.5 rounded">
-                        Master's
-                      </span>
-                    </div>
-                    <h3 className="font-bold text-xl mb-1 text-gray-800">
-                      NUS Research Scholarship
-                    </h3>
-                    <p className="text-gray-600 text-sm mb-2">
-                      National University of Singapore
-                    </p>
-                  </div>
-                  <button className="text-blue-600 hover:text-blue-800">
-                    <span className="material-symbols-outlined">bookmark</span>
-                  </button>
-                </div>
-
-                <p className="text-gray-700 mb-4">
-                  Full tuition coverage with monthly stipend for research-based
-                  programs.
-                </p>
-
-                <div className="flex justify-between items-center">
-                  <div className="text-red-600 text-sm font-medium">
-                    <span className="material-symbols-outlined text-sm align-text-bottom mr-1">
-                      event
-                    </span>
-                    Deadline: Jan 31, 2025
-                  </div>
-                  <div className="flex gap-2">
-                    <button className="text-gray-600 hover:text-gray-800 text-sm border border-gray-300 rounded px-3 py-1">
-                      Remove
-                    </button>
-                    <button className="bg-blue-600 hover:bg-blue-700 text-white text-sm rounded px-3 py-1">
-                      View Details
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )} */}
+       
       </div>
     </div>
   );
