@@ -1,7 +1,30 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 function ScholarshipCard(prop) {
+  let token=localStorage.getItem('jwtToken')
+
+  async function bookmark() {
+    try{
+      let bookmarks = await axios.post(
+        "http://localhost:5656/auth/bookmarking",
+        {
+          bookmark_id: prop.id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(bookmarks)
+    }
+    catch(err){
+      console.log(err.message)
+    }
+   
+  }
   return (
     <div className="group relative flex flex-col min-h-[280px] rounded-xl bg-white shadow-md hover:shadow-xl transition-all duration-300">
       {/* Top color accent */}
@@ -17,14 +40,15 @@ function ScholarshipCard(prop) {
         className="absolute top-3 right-3 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-white shadow-sm hover:shadow-md transition-shadow"
         aria-label="Bookmark scholarship"
       >
-        <span className="material-symbols-outlined text-blue-600">
+        <span className="material-symbols-outlined text-blue-600"
+        onClick={bookmark}>
           bookmark
         </span>
       </button>
 
       <Link
         to={`/scholarshiplist/${prop.id}`}
-        className="block p-5 flex flex-col h-full"
+        className="p-5 flex flex-col h-full"
       >
         {/* Header section with consistent spacing */}
         <div className="mb-2">

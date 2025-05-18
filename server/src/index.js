@@ -60,6 +60,9 @@ app.get('/scholarshipfilter',async (req,res)=>{
 
       res.json(resu)
 })
+
+
+
 app.use('/auth',route)
 
 

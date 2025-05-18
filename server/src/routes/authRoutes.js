@@ -99,4 +99,19 @@ route.get('/dashboard',verifyLogin,async(req,res)=>{
     }
 })
 
+route.post('/bookmarking',verifyLogin,async(req,res)=>{
+  console.log(req.userId)
+    console.log(req.body)
+    try{
+        const bookmark = `INSERT INTO bookmark (userdata_id,scholarship_id) VALUES ($1,$2) RETURNING id`;
+        const data=pool.query(bookmark,[req.userId,req.body.bookmark_id])
+
+        console.log(data);
+        res.send("successfull",data)
+    }
+    catch(err){
+      console.log(err.message)
+    }
+})
+
 export default route;
