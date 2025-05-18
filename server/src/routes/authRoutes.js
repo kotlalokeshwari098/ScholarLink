@@ -114,4 +114,25 @@ route.post('/bookmarking',verifyLogin,async(req,res)=>{
     }
 })
 
+route.get('/bookmark',verifyLogin,async(req,res)=>{
+     try{
+        const result=
+        `SELECT 
+      c.name AS country_name, 
+      u.name AS university_name, 
+      s.name AS scholarship_name,
+      s.degree,s.eligible,s.amount,s.deadline,s.link,s.criteria
+      FROM  
+      country c JOIN university u ON c.id=u.country_id 
+      JOIN scholarship s ON u.id=s.university_id
+      WHERE s.id IN ( select scholarship_id from bookmark where userdata_id= $1)`
+      const data=await pool.query(result,[req.userId])
+      console.log(data)
+      res.send(data.rows)
+     }
+     catch(err){
+        console.log(err.message)
+     }
+})
+
 export default route;

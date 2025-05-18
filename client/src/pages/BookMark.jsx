@@ -1,16 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 function BookMark() {
   const [bookmarks, setBookmarks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const token=localStorage.getItem('jwtToken')
 
   useEffect(() => {
     // Simulate loading bookmarks
-    setTimeout(() => {
+    setTimeout(async() => {
       setLoading(false);
       // This would be replaced with actual API call
+      try{
+        let bookmarksData = await axios.get(
+          "http://localhost:5656/auth/bookmark",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log(bookmarksData.data)
+        setBookmarks(bookmarksData.data)
+      }
+      catch(err){
+        console.log(err.message)
+      }
+      
     }, 1000);
+
+    
   }, []);
 
   return (
@@ -55,6 +75,62 @@ function BookMark() {
           // Bookmarks list
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* This would be populated with actual bookmarks */}
+            {bookmarks.map((item)=>(
+            
+              <div className="mt-10 border-t pt-10">
+                
+
+                <div className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
+                  <div className="h-2 bg-blue-500"></div>
+                  <div className="p-6">
+                    <div className="flex justify-between items-start mb-3">
+                      <div>
+                        <div className="flex gap-2 mb-2">
+                          <span className="bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded">
+                           {item.country_name}
+                          </span>
+                          <span className="bg-green-100 text-green-800 text-xs px-2 py-0.5 rounded">
+                            {item.degree}
+                          </span>
+                        </div>
+                        <h3 className="font-bold text-xl mb-1 text-gray-800">
+                          {item.scholarship_name}
+                        </h3>
+                        <p className="text-gray-600 text-sm mb-2">
+                         {item.university_name}
+                        </p>
+                      </div>
+                      <button className="text-blue-600 hover:text-blue-800">
+                        <span className="material-symbols-outlined">
+                          bookmark
+                        </span>
+                      </button>
+                    </div>
+
+                    <p className="text-gray-700 mb-4">
+                      {item.amount}
+                    </p>
+
+                    <div className="flex justify-between items-center">
+                      <div className="text-red-600 text-sm font-medium">
+                        <span className="material-symbols-outlined text-sm align-text-bottom mr-1">
+                          event
+                        </span>
+                        {item.deadline}
+                      </div>
+                      <div className="flex gap-2">
+                        <button className="text-gray-600 hover:text-gray-800 text-sm border border-gray-300 rounded px-3 py-1">
+                          Remove
+                        </button>
+                        <button className="bg-blue-600 hover:bg-blue-700 text-white text-sm rounded px-3 py-1">
+                          View Details
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         ) : (
           // Empty state
@@ -82,7 +158,7 @@ function BookMark() {
         )}
 
         {/* Sample Bookmarked Item (for preview only) */}
-        {bookmarks.length === 0 && !loading && (
+        {/* {bookmarks.length === 0 && !loading && (
           <div className="mt-10 border-t pt-10">
             <h3 className="text-lg font-medium text-gray-700 mb-4">
               Example of a bookmarked scholarship:
@@ -137,7 +213,7 @@ function BookMark() {
               </div>
             </div>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );
