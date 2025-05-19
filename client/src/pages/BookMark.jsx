@@ -1,32 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import { BookmarkContext } from "../context/BookmarkContext";
 
 function BookMark() {
-  const [bookmarks, setBookmarks] = useState([]);
   const [loading, setLoading] = useState(true);
   const token=localStorage.getItem('jwtToken')
+
+  const {bookmarks,setBookmarks}=useContext(BookmarkContext)
+  console.log(bookmarks)
 
   useEffect(() => {
   
     setTimeout(async() => {
       setLoading(false);
-     
-      try{
-        let bookmarksData = await axios.get(
-          "http://localhost:5656/auth/bookmark",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        console.log(bookmarksData.data)
-        setBookmarks(bookmarksData.data)
-      }
-      catch(err){
-        console.log(err.message)
-      }
       
     }, 1000);
 
@@ -56,7 +42,7 @@ function BookMark() {
         </div>
 
         {/* Content */}
-        {loading ? (
+         {loading ? (
           // Loading state
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[1, 2, 3].map((i) => (
@@ -74,7 +60,7 @@ function BookMark() {
         ) : bookmarks.length > 0 ? (
           // Bookmarks list
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* This would be populated with actual bookmarks */}
+             {/* This would be populated with actual bookmarks  */}
             {bookmarks.map((item)=>(
             
               <div className="mt-10 border-t pt-10">
@@ -131,7 +117,7 @@ function BookMark() {
                 </div>
               </div>
             ))}
-          </div>
+          </div> 
         ) : (
           // Empty state
           <div className="bg-white rounded-lg shadow p-10 text-center">

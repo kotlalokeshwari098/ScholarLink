@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import clsx from 'clsx'
 
 function ScholarshipCard(prop) {
+  const [book,setBook]=useState(false)
   let token=localStorage.getItem('jwtToken')
 
   async function bookmark() {
+   !book ? setBook(true) :setBook(false)
+  
+    
     try{
       let bookmarks = await axios.post(
         "http://localhost:5656/auth/bookmarking",
@@ -25,6 +30,10 @@ function ScholarshipCard(prop) {
     }
    
   }
+  // useEffect(()=>{
+  //   console.log(book);
+  // },[book])
+
   return (
     <div className="group relative flex flex-col min-h-[280px] rounded-xl bg-white shadow-md hover:shadow-xl transition-all duration-300">
       {/* Top color accent */}
@@ -40,9 +49,15 @@ function ScholarshipCard(prop) {
         className="absolute top-3 right-3 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-white shadow-sm hover:shadow-md transition-shadow"
         aria-label="Bookmark scholarship"
       >
-        <span className="material-symbols-outlined text-blue-600"
-        onClick={bookmark}>
-          bookmark
+        <span
+          // className="material-symbols-outlined text-blue-600  "
+          className={clsx(
+            "material-symbols-outlined",
+            book ? "text-blue-600" : "text-gray-400"
+          )}
+          onClick={bookmark}
+        >
+          {book ? "bookmark" : "bookmark_border"}
         </span>
       </button>
 

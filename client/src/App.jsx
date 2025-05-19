@@ -10,22 +10,34 @@ import AboutUs from './pages/AboutUs';
 import BookMark from './pages/BookMark'
 import Sign from './pages/Sign';
 import DashBoard from './pages/DashBoard';
+import { BookmarkProvider } from './context/BookmarkContext';
+import { Outlet } from 'react-router-dom';
 
-const routes=createBrowserRouter(createRoutesFromElements(
-    
-     <Route path='/' element={<AppLayout />}>
-         <Route index element={<HomePage />}/>
-         <Route path='/scholarshiplist' element={<ScholarShipList />}/>
-         <Route path='/scholarshiplist/:name' element={<ScholarShipInfo />}/>   
-         <Route path='/scholarshiplist/:id/:name' element={<ScholarShipCompatibility />}/>    
-         <Route path='/about' element={<AboutUs />}/> 
-         <Route path='/bookmark' element={<BookMark />}/>   
-         <Route path='/sign' element={<Sign />}/> 
-         <Route path='/dashboard' element={<DashBoard />}/>  
+const BookmarkProviderWrapper = () => (
+  <BookmarkProvider>
+    <Outlet />
+  </BookmarkProvider>
+);
 
-     </Route>
-   
-))
+const routes = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<AppLayout />}>
+      <Route index element={<HomePage />} />
+      <Route path="/scholarshiplist" element={<ScholarShipList />} />
+      <Route path="/scholarshiplist/:name" element={<ScholarShipInfo />} />
+      <Route
+        path="/scholarshiplist/:id/:name"
+        element={<ScholarShipCompatibility />}
+      />
+      <Route path="/about" element={<AboutUs />} />
+      <Route path="/sign" element={<Sign />} />
+      <Route element={<BookmarkProviderWrapper />}>
+        <Route path="/dashboard" element={<DashBoard />} />
+        <Route path="/bookmark" element={<BookMark />} />
+      </Route>
+    </Route>
+  )
+);
 function App() {
   return (
     <div>
