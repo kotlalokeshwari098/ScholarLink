@@ -29,15 +29,15 @@ Many students struggle to find scholarships that suit their profiles and often m
 * 🔎 **Search and filter** by name, degree level, country, eligibility, and more.
 * 📄 View detailed scholarship info including **eligibility**, **award amount**, and **application link**.
 
-###  3. Compatibility Testing *(Coming Soon!)*
+###  3. Compatibility Testing 
 
 * Automatically compare user profiles (degree level, age, qualifications) with scholarship requirements to check eligibility.
 
-###  4. Deadline Tracking *(Coming Soon!)*
+###  4. Deadline Tracking 
 
 * Get reminders and alerts for scholarship deadlines so users never miss important dates.
 
-###  5. Application Status Tracking *(Coming Soon!)*
+###  5. Application Status Tracking 
 
 * Track scholarship application status as: `Applied`, `Under Review`, `Accepted`, or `Rejected`.
 
