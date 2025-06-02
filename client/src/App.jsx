@@ -12,6 +12,7 @@ import Sign from './pages/Sign';
 import DashBoard from './pages/DashBoard';
 import { BookmarkProvider } from './context/BookmarkContext';
 import { Outlet } from 'react-router-dom';
+import Profile from './pages/Profile'
 
 const BookmarkProviderWrapper = () => (
   <BookmarkProvider>
@@ -35,6 +36,7 @@ const routes = createBrowserRouter(
         <Route path="/dashboard" element={<DashBoard />} />
         <Route path="/bookmark" element={<BookMark />} />
       </Route>
+      <Route path='/profile' element={<Profile />}/>
     </Route>
   )
 );
