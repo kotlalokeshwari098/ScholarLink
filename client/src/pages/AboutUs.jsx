@@ -1,11 +1,12 @@
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
+import axiosInstance from "../api/axiosConfig";
 
 function AboutUs() {
   const [data, setData] = useState();
-  axios
-    .get("http://localhost:5000/")
+  axiosInstance
+    .get("/")
     .then((res) => console.log(res.data))
     .catch((err) => console.error("Error:", err));
 

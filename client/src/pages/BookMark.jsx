@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { BookmarkContext } from "../context/BookmarkContext";
 import axios from "axios";
+import axiosInstance from "../api/axiosConfig";
 
 function BookMark() {
   const [loading, setLoading] = useState(true);
@@ -11,7 +12,7 @@ function BookMark() {
   console.log(bookmarks)
   async function removeScholarship(){
       try{
-        const data = await axios.delete("http://localhost:3000/auth/remove", {
+        const data = await axiosInstance.delete("/auth/remove", {
           headers: {
             Authorization: `Bearer ${token}`,
           },

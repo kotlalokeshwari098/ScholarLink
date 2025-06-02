@@ -16,7 +16,7 @@ function DashBoard() {
   const fetchUser = async () => {
     try {
       const token = localStorage.getItem("jwtToken");
-      const response = await axios.get("http://localhost:5656/auth/dashboard", {
+      const response = await axios.get("/auth/dashboard", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -24,17 +24,18 @@ function DashBoard() {
       console.log(response);
       if (response.status !== 201) {
         setLoggedIn(false);
-        navigate("/sign");
+        navigate("/signup");
       }
       setUserData(response.data.user || {});
       setLoggedIn(true);
       setLoading(false);
+      navigate('/dashboard')
     } catch (err) {
       console.log(err.message);
       setLoading(false);
       setLoggedIn(false);
       setTimeout(() => {
-        navigate("/sign");
+        navigate("/signup");
       }, 2000);
     }
   };
@@ -71,7 +72,7 @@ function DashBoard() {
             You need to login or sign up to view your dashboard.
           </p>
           <Link
-            to="/sign"
+            to="/signup"
             className="block w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-700 transition duration-300"
           >
             Go to Login Page

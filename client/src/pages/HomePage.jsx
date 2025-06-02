@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function HomePage() {
+  console.log(import.meta.env.VITE_BASE_URL)
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}

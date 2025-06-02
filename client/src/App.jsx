@@ -8,11 +8,12 @@ import ScholarShipInfo from './pages/ScholarShipInfo'
 import ScholarShipCompatibility from './pages/ScholarShipCompatablility'
 import AboutUs from './pages/AboutUs';
 import BookMark from './pages/BookMark'
-import Sign from './pages/Sign';
+import SignUp from './pages/SignUp';
 import DashBoard from './pages/DashBoard';
 import { BookmarkProvider } from './context/BookmarkContext';
 import { Outlet } from 'react-router-dom';
 import Profile from './pages/Profile'
+import Login from './pages/Login';
 
 const BookmarkProviderWrapper = () => (
   <BookmarkProvider>
@@ -31,7 +32,8 @@ const routes = createBrowserRouter(
         element={<ScholarShipCompatibility />}
       />
       <Route path="/about" element={<AboutUs />} />
-      <Route path="/sign" element={<Sign />} />
+      <Route path="/signup" element={<SignUp />} />
+      <Route path="/login" element={<Login />} />
       <Route element={<BookmarkProviderWrapper />}>
         <Route path="/dashboard" element={<DashBoard />} />
         <Route path="/bookmark" element={<BookMark />} />

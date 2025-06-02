@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
+import axiosInstance from "../api/axiosConfig";
 
 function ScholarShipInfo() {
   const [data, setData] = useState(null);
@@ -12,8 +13,8 @@ function ScholarShipInfo() {
     const fetchScholarshipData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(
-          `http://localhost:5656/scholarshiplist/${id.name}`
+        const response = await axiosInstance.get(
+          `/scholarshiplist/${id.name}`
         );
         console.log(response.data.rows[0]);
         setData(response.data.rows[0]);

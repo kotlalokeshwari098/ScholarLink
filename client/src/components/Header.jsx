@@ -147,6 +147,15 @@ function Header() {
                         Dashboard
                       </Link>
                       <Link
+                        to="/profile"
+                        className="flex px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        role="menuitem"
+                        onClick={() => setUserMenuOpen(false)}
+                      >
+                        <FaUserCircle className="mr-2 text-blue-600 text-lg" />
+                        My Profile
+                      </Link>
+                      <Link
                         to="/bookmark"
                         className="flex px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                         role="menuitem"
@@ -171,7 +180,7 @@ function Header() {
               </div>
             ) : (
               <Link
-                to="/sign"
+                to="/login"
                 className="ml-6 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 focus:outline-none"
               >
                 Sign In
@@ -282,7 +291,7 @@ function Header() {
               </div>
             ) : (
               <Link
-                to="/sign"
+                to="/login"
                 onClick={() => setMobileMenuOpen(false)}
                 className="flex items-center justify-center mx-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800"
               >

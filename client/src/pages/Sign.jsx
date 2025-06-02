@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "../api/axiosConfig";
 
 function Sign() {
   const [sign, setSign] = useState(true);
@@ -35,9 +36,9 @@ function Sign() {
   // Sending the data to backend for register/login
   function submitData() {
     if (sign) {
-      axios
+      axiosInstance
         .post(
-          "http://localhost:5656/auth/register",
+          "/auth/register",
           {
             email: datas.email,
             password: datas.password,
@@ -53,8 +54,8 @@ function Sign() {
           navigate("/dashboard");
         });
     } else {
-      axios
-        .post("http://localhost:5656/auth/login", {
+      axiosInstance
+        .post("/auth/login", {
           email: datas.email,
           password: datas.password,
         })

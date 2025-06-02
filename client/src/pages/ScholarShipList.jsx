@@ -1,6 +1,7 @@
 import React, { useEffect, useState, createContext } from "react";
 import ScholarshipCard from "../components/ScholarshipCard";
 import axios from "axios";
+import axiosInstance from "../api/axiosConfig";
 
 export const myBookmark = createContext();
 
@@ -13,7 +14,7 @@ function ScholarShipList() {
   useEffect(() => {
     (async () => {
       try {
-        const response = await axios.get("http://localhost:5656/scholarships");
+        const response = await axiosInstance.get("/scholarships");
         setDataInitial(response.data.rows);
       } catch (err) {
         console.log(err.message);
