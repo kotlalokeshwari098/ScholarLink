@@ -283,9 +283,11 @@ function Header() {
                   }}
                   className="flex w-full items-center py-2 px-4 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800"
                 >
-                  <span className="material-symbols-outlined mr-2 text-blue-600">
-                    logout
-                  </span>
+                  <Link to='/logout'>
+                    <span className="material-symbols-outlined mr-2 text-blue-600">
+                      logout
+                    </span>
+                  </Link>
                   Sign out
                 </button>
               </div>

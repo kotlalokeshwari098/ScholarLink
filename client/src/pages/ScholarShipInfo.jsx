@@ -13,9 +13,7 @@ function ScholarShipInfo() {
     const fetchScholarshipData = async () => {
       try {
         setLoading(true);
-        const response = await axiosInstance.get(
-          `/scholarshiplist/${id.name}`
-        );
+        const response = await axiosInstance.get(`/scholarshiplist/${id.name}`);
         console.log(response.data.rows[0]);
         setData(response.data.rows[0]);
         setLoading(false);
@@ -228,9 +226,13 @@ function ScholarShipInfo() {
                 Take our compatibility test to see if you qualify for this
                 scholarship.
               </p>
-              <button className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+              <Link
+                to="/compatibility-check"
+                state={{ scholarshipId: id.name }}
+                className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition block text-center"
+              >
                 Take Compatibility Test
-              </button>
+              </Link>
             </div>
           </div>
         </div>

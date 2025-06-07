@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 import pool from "../database/db.js";
 
 export const userRegister = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password,firstname,lastname } = req.body;
   const hashPassword = bcrypt.hashSync(password, 8);
 
   try {
@@ -20,8 +20,8 @@ export const userRegister = async (req, res) => {
         .json({ error: "email already exists try another one" });
     }
 
-    const insert = `INSERT INTO userdata (email,password) VALUES ($1,$2) RETURNING id`;
-    const result = await pool.query(insert, [email, hashPassword]);
+    const insert = `INSERT INTO userdata (email,password,firstname,lastname) VALUES ($1,$2,$3,$4) RETURNING id`;
+    const result = await pool.query(insert, [email, hashPassword,firstname,lastname]);
     console.log(result);
 
     // Ensure result.rows is not empty
@@ -142,16 +142,99 @@ export const userRemoveBookmark = async (req, res) => {
   }
 };
 
-export const userProfile=async(req,res)=>{
+export const getUser=async(req,res)=>{
        try{
           const checkid=`SELECT * FROM userdata WHERE id=$1`;
           const result=await pool.query(checkid,[req.userId]);
           if(result.rows.length===0){
+            
             return res.status(500).json({error:"user not exist"})
           }
-          return res.status(201).json({user:result.rows[0]})
+          
+          // removing password before sending response
+          const { password, ...userWithoutPassword } = result.rows[0];
+          return res.status(201).json({ user: userWithoutPassword });
        }
        catch(err){
         return res.status(500).json({message:"server error"})
        }
+}
+
+export const postProfile=async(req,res)=>{
+  console.log(req.body)
+  const  {age,gender,category,income,disability_status,current_education_level,course_name,institution_name,cgpa,education_stream,year_of_study,
+    passed_last_exam,
+    certificates,
+    entrance_exam_scores,
+    research_experience,
+    portfolio,
+    state,
+    district,
+    residency_status}=req.body;
+     try{
+      const insertProfile = `
+        INSERT INTO user_profile (
+          user_id,
+          age,
+          gender,
+          category,
+          income,
+          disability_status,
+          current_education_level,
+          course_name,
+          institution_name,
+          cgpa,
+          education_stream,
+          year_of_study,
+          passed_last_exam,
+          certificates,
+          entrance_exam_scores,
+          research_experience,
+          portfolio,
+          state,
+          district,
+          residency_status
+        ) VALUES (
+          $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20
+        ) RETURNING id
+      `;
+
+      console.log(typeof age)
+      const values = [
+        req.userId,
+        parseInt(age),
+        gender,
+        category,
+        parseInt(income),
+        disability_status,
+        current_education_level,
+        course_name,
+        institution_name,
+        parseFloat(cgpa),
+        education_stream,
+        parseInt(year_of_study),
+        passed_last_exam,
+        JSON.stringify(certificates),
+        JSON.stringify(entrance_exam_scores),
+        research_experience,
+        portfolio,
+        state,
+        district,
+        residency_status,
+      ];
+      console.log(typeof values[1])
+      console.log(values)
+
+      const result = await pool.query(insertProfile, values);
+
+      if (result.rows.length === 0) {
+        return res.status(500).json({ error: "Failed to save profile" });
+      }
+
+      return res.status(201).json({ message: "Profile saved successfully", profileId: result.rows[0].id });
+     }
+     catch(err){
+      console.log(err.message)
+       return res.status(500).json({ message: "server error" });
+     }
 }

@@ -6,6 +6,8 @@ function SignUp() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
+    firstname:'',
+    lastname:''
   });
   const [result, setResult] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -26,10 +28,7 @@ function SignUp() {
     setIsLoading(true);
 
     try {
-      const response = await axiosInstance.post("/auth/register", {
-        email: formData.email,
-        password: formData.password,
-      });
+      const response = await axiosInstance.post("/auth/register", formData);
 
       if (response.data && response.data.token) {
         localStorage.setItem("jwtToken", response.data.token);
@@ -56,6 +55,28 @@ function SignUp() {
         <p className="text-center text-red-500 mb-4">{result}</p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <input
+              type="text"
+              placeholder="First Name"
+              onChange={handleChange}
+              value={formData.firstname}
+              name="firstname"
+              required
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              placeholder="Last Name"
+              onChange={handleChange}
+              value={formData.lastname}
+              name="lastname"
+              required
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
           <div>
             <input
               type="email"

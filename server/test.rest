@@ -1,3 +1,12 @@
+@baseurl=http://localhost:5656
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzQ5MzEzNjM3LCJleHAiOjE3NDk0MDAwMzd9.rgRlhlY-NzJA6ZZaFcv7QAFKv2VzaVfl0BMplB2iTTQ
+
+###
+GET {{baseurl}}/auth/getUser
+Authorization: Bearer {{token}}
+
+
+
 ### get scholarship data
 GET http://localhost:5656/scholarships
 

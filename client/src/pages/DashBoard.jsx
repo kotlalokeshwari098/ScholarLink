@@ -5,13 +5,12 @@ import { useContext } from "react";
 import { BookmarkContext } from "../context/BookmarkContext";
 
 function DashBoard() {
-  const {bookmarks,setBookmarks}=useContext(BookmarkContext)
+  const { bookmarks, setBookmarks } = useContext(BookmarkContext);
 
   const navigate = useNavigate();
   const [loggedIn, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
   const [userData, setUserData] = useState({});
-  
 
   const fetchUser = async () => {
     try {
@@ -29,7 +28,7 @@ function DashBoard() {
       setUserData(response.data.user || {});
       setLoggedIn(true);
       setLoading(false);
-      navigate('/dashboard')
+      navigate("/dashboard");
     } catch (err) {
       console.log(err.message);
       setLoading(false);
@@ -143,7 +142,7 @@ function DashBoard() {
               Scholarship Compatibility
             </h2>
             <Link
-              to="/scholarshiplist"
+              to="/compatibility-check"
               className="text-blue-600 text-sm font-medium hover:underline flex items-center"
             >
               Take the test{" "}
@@ -165,7 +164,7 @@ function DashBoard() {
               profile
             </p>
             <Link
-              to="/scholarshiplist"
+              to="/compatibility-check"
               className="inline-block bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-700 transition duration-300"
             >
               Start Test
