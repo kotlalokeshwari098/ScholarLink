@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import axiosInstance from "../api/axiosConfig";
 
 const UserProtectWrapper = ({ children }) => {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("jwtToken");
   const navigate = useNavigate();
   const { user, setUser } = useContext(UserDataContext);
   const [isLoading, setIsLoading] = useState(true);
@@ -19,16 +19,17 @@ const UserProtectWrapper = ({ children }) => {
   useEffect(() => {
     (async () => {
       await axiosInstance
-        .get("/auth/profile", {
+        .get("/auth/getUser", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         })
         .then((response) => {
-          console.log(response.data)
+          console.log("userdata",response.data)
           setIsLoading(false);
           setUser(response.data);
-          navigate("/home");
+          // navigate("/home");
+          console.log("user data",user)
         })
         .catch((err) => {
           console.log(err.message);

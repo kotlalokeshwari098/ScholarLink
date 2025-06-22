@@ -222,19 +222,35 @@ export const postProfile=async(req,res)=>{
         district,
         residency_status,
       ];
-      console.log(typeof values[1])
-      console.log(values)
 
       const result = await pool.query(insertProfile, values);
 
       if (result.rows.length === 0) {
         return res.status(500).json({ error: "Failed to save profile" });
       }
+      console.log(result.rows[0])
 
-      return res.status(201).json({ message: "Profile saved successfully", profileId: result.rows[0].id });
+      return res.status(201).json({ message: "Profile saved successfully", profileId: result.rows[0].id ,profile:result.rows[0]});
      }
      catch(err){
       console.log(err.message)
        return res.status(500).json({ message: "server error" });
      }
+}
+
+export const userProfile=async(req,res)=>{
+   const userId=req.userId;
+  try{
+    const getProfile=`SELECT * FROM user_profile WHERE user_id=$1`;
+    const result=await pool.query(getProfile,[userId]);
+    if(result.rows.length===0){
+      return res.status(404).json({error:"Profile not found"});
+    }
+    return res.status(200).json({profile:result.rows[0]})
+    
+  }
+  catch(err){
+    console.log(err.message);
+    return res.status(500).json({message:"server error"});
+  }
 }

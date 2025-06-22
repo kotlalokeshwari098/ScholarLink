@@ -1,5 +1,5 @@
 import { createContext, useEffect,useState } from "react";
-import axios from "axios";
+import axiosInstance from "../api/axiosConfig";
 
 const BookmarkContext=createContext(null)
 
@@ -10,8 +10,8 @@ function BookmarkProvider({children}) {
    useEffect(() => {
     const fetchBookmarks=async()=>{
      try {
-       let bookmarksData = await axios.get(
-         "http://localhost:5656/auth/bookmark",
+       let bookmarksData = await axiosInstance.get(
+         "/auth/bookmark",
          {
            headers: {
              Authorization: `Bearer ${token}`,

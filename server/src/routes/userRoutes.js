@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { verifyLogin } from "../middleware/authmiddleware.js";
-import {userRegister, userLogin, userDashboard, userBookmarking, userBookmarks, userRemoveBookmark,postProfile,getUser } from '../controllers/userController.js'
+import {userRegister, userLogin, userDashboard, userBookmarking, userBookmarks, userRemoveBookmark,postProfile,getUser,userProfile } from '../controllers/userController.js'
 
 const route = Router();
 
@@ -16,6 +16,7 @@ route.get('/getUser',verifyLogin,getUser)
 
 route.post('/bookmarking',verifyLogin,userBookmarking)
 route.post('/profile-send',verifyLogin,postProfile)
+route.get('/profile',verifyLogin,userProfile)
 
 route.get('/bookmark',verifyLogin,userBookmarks)
 

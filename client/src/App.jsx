@@ -18,17 +18,24 @@ import SignUp from "./pages/SignUp";
 import DashBoard from "./pages/DashBoard";
 import { BookmarkProvider } from "./context/BookmarkContext";
 import { Outlet } from "react-router-dom";
-import Profile from "./pages/Profile";
+import EditProfile from "./pages/EditProfile";
 import Login from "./pages/Login";
 import Logout from "./pages/Logout";
 import CompatibilityCheck from "./components/CompatibilityCheck";
 import UserProtectWrapper from "./pages/UserProtecterWrapper";
+import MainProfile from "./pages/MainProfile";
+import { ProfileContextProvider } from "./context/ProfileContext";
 
 const BookmarkProviderWrapper = () => (
   <BookmarkProvider>
     <Outlet />
   </BookmarkProvider>
 );
+const ProfileProviderWrapper=()=>(
+   <ProfileContextProvider>
+     <Outlet/>
+   </ProfileContextProvider>
+)
 
 const routes = createBrowserRouter(
   createRoutesFromElements(
@@ -74,7 +81,25 @@ const routes = createBrowserRouter(
           }
         />
       </Route>
-      <Route path="/profile" element={<Profile />} />
+      <Route element={<ProfileProviderWrapper />}>
+        <Route
+          path="/mainprofile"
+          element={
+            <UserProtectWrapper>
+              <MainProfile />
+            </UserProtectWrapper>
+          }
+        />
+        <Route
+          path="/editprofile"
+          element={
+            <UserProtectWrapper>
+              <EditProfile />
+            </UserProtectWrapper>
+          }
+        />
+      </Route>
+
       <Route path="/logout" element={<Logout />} />
     </Route>
   )

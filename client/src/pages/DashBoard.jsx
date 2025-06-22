@@ -21,13 +21,8 @@ function DashBoard() {
         },
       });
       console.log(response);
-      if (response.status !== 201) {
-        setLoggedIn(false);
-        navigate("/signup");
-      }
-      setUserData(response.data.user || {});
       setLoggedIn(true);
-      setLoading(false);
+      setLoading(false)
       navigate("/dashboard");
     } catch (err) {
       console.log(err.message);
