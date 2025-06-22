@@ -1,45 +1,39 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import axiosInstance from "../api/axiosConfig";
+import { ProfileDataContext } from "../context/ProfileContext";
 
-function ScholarShipCompatablility() {
+function ScholarShipCompatability() {
+  const {profile,setProfile}=useContext(ProfileDataContext)
   const [loading, setLoading] = useState(true);
   const [scholarshipData, setScholarshipData] = useState(null);
-  const [userProfile, setUserProfile] = useState(null);
   const [compatibilityScore, setCompatibilityScore] = useState(null);
   const [compatibilityDetails, setCompatibilityDetails] = useState([]);
   const { id, name } = useParams();
+
+  console.log("Scholarship compatable",profile)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-
-        // Fetch scholarship details if we have an ID
-        if (id) {
+        if (name) {
           const scholarshipResponse = await axiosInstance.get(
-            `/scholarshiplist/${id}`
+            `/scholarshiplist/${name}`
           );
           setScholarshipData(scholarshipResponse.data.rows[0]);
+         
         }
 
-        // Fetch user profile data
-        const token = localStorage.getItem("jwtToken");
-        if (token) {
-          const profileResponse = await axiosInstance.get("/user/profile", {
-            headers: { Authorization: `Bearer ${token}` },
-          });
-          setUserProfile(profileResponse.data);
-
           // Calculate compatibility if we have both scholarship and profile data
-          if (id && profileResponse.data) {
+          if (name && profile) {
             calculateCompatibility(
               scholarshipResponse.data.rows[0],
-              profileResponse.data
+              profile
             );
           }
         }
-      } catch (error) {
+       catch (error) {
         console.error("Error fetching data:", error);
       } finally {
         setLoading(false);
@@ -305,4 +299,4 @@ function ScholarShipCompatablility() {
   );
 }
 
-export default ScholarShipCompatablility;
+export default ScholarShipCompatability;

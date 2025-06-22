@@ -137,7 +137,7 @@ function DashBoard() {
               Scholarship Compatibility
             </h2>
             <Link
-              to="/compatibility-check"
+              to="/compatibility-test"
               className="text-blue-600 text-sm font-medium hover:underline flex items-center"
             >
               Take the test{" "}

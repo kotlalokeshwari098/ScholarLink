@@ -151,7 +151,7 @@ function ScholarShipInfo() {
                       Eligibility Criteria
                     </h3>
                     <div className="space-y-2">
-                      {Object.entries(data.criteria || {}).map(
+                      {/* {Object.entries(data.criteria || {}).map(
                         ([key, value], index) => (
                           <div key={index} className="flex">
                             <span className="material-symbols-outlined text-blue-600 mr-2">
@@ -162,7 +162,7 @@ function ScholarShipInfo() {
                             </span>
                           </div>
                         )
-                      )}
+                      )} */}
                     </div>
                   </div>
                 )}
@@ -227,7 +227,7 @@ function ScholarShipInfo() {
                 scholarship.
               </p>
               <Link
-                to="/compatibility-check"
+                to={`/compatibility-test/${id.name}`}
                 state={{ scholarshipId: id.name }}
                 className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition block text-center"
               >

@@ -11,7 +11,7 @@ import HomePage from "./pages/HomePage";
 import ScholarShipList from "./pages/ScholarShipList";
 // import ScholarLayout from './layouts/ScholarLayout';
 import ScholarShipInfo from "./pages/ScholarShipInfo";
-import ScholarShipCompatibility from "./pages/ScholarShipCompatablility";
+import ScholarShipCompatibility from "./pages/ScholarShipCompatability";
 import AboutUs from "./pages/AboutUs";
 import BookMark from "./pages/BookMark";
 import SignUp from "./pages/SignUp";
@@ -43,23 +43,8 @@ const routes = createBrowserRouter(
       <Route index element={<HomePage />} />
       <Route path="/scholarshiplist" element={<ScholarShipList />} />
       <Route path="/scholarshiplist/:name" element={<ScholarShipInfo />} />
-      <Route path="/compatibility-check" element={<CompatibilityCheck />} />
-      <Route
-        path="/compatibility-test"
-        element={
-          <UserProtectWrapper>
-            <ScholarShipCompatibility />
-          </UserProtectWrapper>
-        }
-      />
-      <Route
-        path="/compatibility-test/:id/:name"
-        element={
-          <UserProtectWrapper>
-            <ScholarShipCompatibility />
-          </UserProtectWrapper>
-        }
-      />
+      {/* <Route path="/compatibility-check" element={<CompatibilityCheck />} /> */}
+
       <Route path="/about" element={<AboutUs />} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/login" element={<Login />} />
@@ -82,6 +67,22 @@ const routes = createBrowserRouter(
         />
       </Route>
       <Route element={<ProfileProviderWrapper />}>
+        <Route
+          path="/compatibility-test"
+          element={
+            <UserProtectWrapper>
+              <ScholarShipCompatibility />
+            </UserProtectWrapper>
+          }
+        />
+        <Route
+          path="/compatibility-test/:name"
+          element={
+            <UserProtectWrapper>
+              <ScholarShipCompatibility />
+            </UserProtectWrapper>
+          }
+        />
         <Route
           path="/mainprofile"
           element={
