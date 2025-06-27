@@ -1,5 +1,5 @@
 @baseurl=http://localhost:5656
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzQ5MzEzNjM3LCJleHAiOjE3NDk0MDAwMzd9.rgRlhlY-NzJA6ZZaFcv7QAFKv2VzaVfl0BMplB2iTTQ
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzUxMDQzNDI1LCJleHAiOjE3NTExMjk4MjV9.EtImEmsZ2GhqoGnPJMd5bnGNzp4dRkPo2S1aJPZhNkQ
 
 ###
 GET {{baseurl}}/auth/getUser
@@ -27,7 +27,7 @@ POST http://localhost:5656/auth/login
 Content-Type: application/json
 
 {
-    "email":"b@b.com",
+    "email":"shashi@gmail.com",
     "password":"1234"
 }
 

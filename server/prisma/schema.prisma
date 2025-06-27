@@ -1,0 +1,83 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model bookmark {
+  id             Int          @id @default(autoincrement())
+  userdata_id    Int?
+  scholarship_id Int?
+  scholarship    scholarship? @relation(fields: [scholarship_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  userdata       userdata?    @relation(fields: [userdata_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model country {
+  id         Int          @id @default(autoincrement())
+  name       String?      @db.VarChar(255)
+  university university[]
+}
+
+model scholarship {
+  id            Int         @id @default(autoincrement())
+  name          String?     @db.VarChar(255)
+  degree        String?     @db.VarChar(255)
+  eligible      String?     @db.VarChar(255)
+  amount        String?     @db.VarChar(255)
+  deadline      String?     @db.VarChar(255)
+  link          String?     @db.VarChar(255)
+  university_id Int?
+  criteria      Json?
+  bookmark      bookmark[]
+  university    university? @relation(fields: [university_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+}
+
+model university {
+  id          Int           @id @default(autoincrement())
+  name        String?       @db.VarChar(255)
+  country_id  Int?
+  scholarship scholarship[]
+  country     country?      @relation(fields: [country_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+}
+
+model user_profile {
+  id                          Int      @id @default(autoincrement())
+  user_id                     Int
+  age                         Int?
+  gender                      String?
+  category                    String?
+  income                      Int?
+  disability_status           String?
+  current_education_level     String?
+  course_name                 String?
+  institution_name            String?
+  cgpa                        Float?
+  education_stream            String?
+  year_of_study               Int?
+  passed_last_exam            Boolean?
+  certificates                Json?
+  entrance_exam_scores        Json?
+  research_experience         Boolean?
+  portfolio                   String?
+  state                       String?
+  district                    String?
+  residency_status            String?
+  aadhar_verified             Boolean? @default(false)
+  income_certificate_uploaded Boolean? @default(false)
+  caste_certificate_uploaded  Boolean? @default(false)
+  userdata                    userdata @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_user")
+}
+
+model userdata {
+  id           Int            @id @default(autoincrement())
+  email        String         @unique(map: "unique_email") @db.VarChar
+  password     String?        @db.VarChar
+  firstname    String?        @db.VarChar(255)
+  lastname     String?        @db.VarChar(255)
+  bookmark     bookmark[]
+  user_profile user_profile[]
+}

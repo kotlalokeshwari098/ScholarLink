@@ -15,6 +15,7 @@ function ScholarShipList() {
     (async () => {
       try {
         const response = await axiosInstance.get("/scholarships");
+        console.log(response)
         setDataInitial(response.data.rows);
       } catch (err) {
         console.log(err.message);
