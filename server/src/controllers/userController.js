@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 // import db from "../db.js";
 import jwt from "jsonwebtoken";
 import pool from "../database/db.js";
+import prisma from '../prismaClient.js';
 
 export const userRegister = async (req, res) => {
   const { email, password,firstname,lastname } = req.body;
