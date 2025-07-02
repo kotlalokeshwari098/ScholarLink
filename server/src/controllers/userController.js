@@ -1,11 +1,11 @@
 import { Router } from "express";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import prisma from "../prismaClient.js";
 
 export const userRegister = async (req, res) => {
   const { email, password, firstname, lastname } = req.body;
-  const hashPassword = bcrypt.hashSync(password, 8);
+  const hashPassword = bcrypt.hash(password, 8);
 
   try {
     // check if email exists
@@ -55,8 +55,7 @@ export const userLogin = async (req, res) => {
       return res.status(404).send({ message: "user not found" });
     }
 
-    const passwordValid = await bcrypt.compareSync(password, user.password);
-console.log(passwordValid)
+    const passwordValid = await bcrypt.compare(password, user.password);
     if (!passwordValid) {
       return res.status(401).send({ message: "Invalid Password" });
     }
@@ -83,7 +82,7 @@ export const userDashboard = async (req, res) => {
     }
     return res.status(201).json({ user });
   } catch (err) {
-    console.error("Error in /dashboard:", err);
+    // console.error("Error in /dashboard:", err);
     return res.status(500).json({ message: "Server error" });
   }
 };
