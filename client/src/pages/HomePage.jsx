@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import scholarshipImage from "../assets/scholarshipImage.png"; // Placeholder image
 
 function HomePage() {
-  console.log(import.meta.env.VITE_BASE_URL);
+  console.log(import.meta.env.VITE_API_BASE_URL);
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section - Enhanced with modern design */}

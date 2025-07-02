@@ -5,17 +5,20 @@ import { getScholarshipByFilter, getScholarshipById, getScholarships } from './c
 
 const app=express();
 app.use(express.json());
+
+const allowedOrigins = [
+  process.env.FRONTEND_API_URL?.replace(/\/$/, ""),
+  process.env.FRONTEND_URL?.replace(/\/$/, ""),
+];
+
 app.use(
   cors({
-    origin:[
-        process.env.FRONTEND_API_URL,
-        process.env.FRONTEND_URL,
-      ],
+    origin: allowedOrigins,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   })
 );
 
-const PORT=process.env.PORT || 5000
+const PORT= 5000
 
 app.get('/',(req,res)=>{
     res.send('hello');
