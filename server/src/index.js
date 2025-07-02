@@ -7,9 +7,9 @@ const app=express();
 app.use(express.json());
 
 const allowedOrigins = [
-  process.env.FRONTEND_API_URL,
-  process.env.FRONTEND_URL,
-];
+  process.env.FRONTEND_API_URL?.trim().replace(/\/$/, ""),
+  process.env.FRONTEND_URL?.trim().replace(/\/$/, ""),
+].filter(Boolean);
 
 app.use(
   cors({
@@ -20,7 +20,7 @@ app.use(
   })
 );
 
-app.options("*", cors());
+app.options("/{*any}", cors());
 
 const PORT= 5000
 
