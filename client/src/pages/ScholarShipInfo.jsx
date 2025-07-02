@@ -7,15 +7,14 @@ function ScholarShipInfo() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const id = useParams();
-  console.log(id);
+  // console.log(id);
 
   useEffect(() => {
     const fetchScholarshipData = async () => {
       try {
         setLoading(true);
         const response = await axiosInstance.get(`/scholarshiplist/${id.name}`);
-        console.log(response.data.rows[0]);
-        setData(response.data.rows[0]);
+        setData(response.data);
         setLoading(false);
       } catch (err) {
         console.log(err.message);

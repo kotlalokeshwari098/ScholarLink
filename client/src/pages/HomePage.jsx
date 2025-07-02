@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import scholarshipImage from "../assets/scholarshipImage.png"; // Placeholder image
 
 function HomePage() {
   console.log(import.meta.env.VITE_BASE_URL);
@@ -88,7 +89,7 @@ function HomePage() {
             <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-blue-300 bg-opacity-20 rounded-lg -rotate-12 backdrop-blur-sm"></div>
 
             <img
-              src="https://placehold.co/600x400/EEE/31316A?text=Education+Illustration"
+              src={scholarshipImage}
               alt="Education Illustration"
               className="rounded-2xl shadow-2xl transform hover:-translate-y-2 transition-transform duration-300 relative z-10"
             />

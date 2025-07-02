@@ -4,12 +4,14 @@ import { FaUserCircle, FaGraduationCap } from "react-icons/fa";
 import { HiMenu, HiX } from "react-icons/hi";
 import { IoBookmarkOutline } from "react-icons/io5";
 import { MdOutlineDashboard } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate=useNavigate();
 
   useEffect(() => {
     // Check if user is logged in
@@ -24,6 +26,7 @@ function Header() {
     localStorage.removeItem("jwtToken");
     setIsLoggedIn(false);
     setUserMenuOpen(false);
+    navigate("/");
   };
 
   // Helper function to determine if a link is active
