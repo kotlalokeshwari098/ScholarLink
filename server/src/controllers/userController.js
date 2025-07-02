@@ -5,7 +5,7 @@ import prisma from "../prismaClient.js";
 
 export const userRegister = async (req, res) => {
   const { email, password, firstname, lastname } = req.body;
-  const hashPassword = bcrypt.hash(password, 8);
+  const hashPassword = await bcrypt.hash(password, 8);
 
   try {
     // check if email exists
