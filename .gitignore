@@ -25,4 +25,14 @@ dist-ssr
 
 .env
 other.txt
+data-utf8.sql
+data.sql
 node_modules/
+
+
+# Prisma generated folders - do NOT commit
+.prisma/
+src/generated/
+
+# Ignore migrations until schema stable (optional)
+prisma/migrations/

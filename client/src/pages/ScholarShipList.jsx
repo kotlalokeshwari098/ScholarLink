@@ -15,8 +15,8 @@ function ScholarShipList() {
     (async () => {
       try {
         const response = await axiosInstance.get("/scholarships");
-        console.log(response)
-        setDataInitial(response.data.rows);
+        console.log(response);
+        setDataInitial(response.data);
       } catch (err) {
         console.log(err.message);
       }
@@ -33,10 +33,10 @@ function ScholarShipList() {
     const type = formData.get("type");
 
     try {
-      const result = await axios.get(
-        `http://localhost:5656/scholarshipfilter?country=${country}&university=${universityName}&degree=${type}`
+      const result = await axiosInstance.get(
+        `/scholarshipfilter?country=${country}&university=${universityName}&degree=${type}`
       );
-      setFilteredData(result.data.rows);
+      setFilteredData(result.data);
     } catch (err) {
       console.log(err.status);
       console.log(err.message);

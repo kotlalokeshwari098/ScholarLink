@@ -76,7 +76,7 @@ const routes = createBrowserRouter(
           }
         />
         <Route
-          path="/compatibility-test/:name"
+          path="/compatibility-test/:id"
           element={
             <UserProtectWrapper>
               <ScholarShipCompatibility />

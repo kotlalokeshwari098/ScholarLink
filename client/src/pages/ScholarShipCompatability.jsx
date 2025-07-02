@@ -2,9 +2,11 @@ import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import axiosInstance from "../api/axiosConfig";
 import { ProfileDataContext } from "../context/ProfileContext";
+import { UserDataContext } from "../context/UserContext";
 
 function ScholarShipCompatability() {
   const {profile,setProfile}=useContext(ProfileDataContext)
+  const {user,setUser}=useContext(ProfileDataContext)
   const [loading, setLoading] = useState(true);
   const [scholarshipData, setScholarshipData] = useState(null);
   const [compatibilityScore, setCompatibilityScore] = useState(null);
@@ -12,15 +14,17 @@ function ScholarShipCompatability() {
   const { id, name } = useParams();
 
   console.log("Scholarship compatable",profile)
+  console.log("Scholarship compatable",user)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        if (name) {
+        if (id) {
           const scholarshipResponse = await axiosInstance.get(
-            `/scholarshiplist/${name}`
+            `/scholarshiplist/${id}`
           );
+          console.log("Scholarship Response:", scholarshipResponse.data.rows[0]);
           setScholarshipData(scholarshipResponse.data.rows[0]);
          
         }
