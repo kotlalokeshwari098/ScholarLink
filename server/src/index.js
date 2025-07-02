@@ -7,8 +7,8 @@ const app=express();
 app.use(express.json());
 
 const allowedOrigins = [
-  process.env.FRONTEND_API_URL?.replace(/\/$/, ""),
-  process.env.FRONTEND_URL?.replace(/\/$/, ""),
+  process.env.FRONTEND_API_URL,
+  process.env.FRONTEND_URL,
 ];
 
 app.use(
