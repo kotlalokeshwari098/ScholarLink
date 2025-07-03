@@ -18,7 +18,7 @@ function BookmarkProvider({children}) {
            },
          }
        );
-       console.log(bookmarksData.data);
+      //  console.log(bookmarksData.data);
        setBookmarks(bookmarksData.data)
      } catch (err) {
        console.log(err.message);

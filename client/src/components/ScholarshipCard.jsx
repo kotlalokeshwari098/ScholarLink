@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import axiosInstance from "../api/axiosConfig";
 import clsx from 'clsx'
 
 function ScholarshipCard(prop) {
@@ -12,8 +13,8 @@ function ScholarshipCard(prop) {
   
     
     try{
-      let bookmarks = await axios.post(
-        "http://localhost:5656/auth/bookmarking",
+      let bookmarks = await axiosInstance.post(
+        "/auth/bookmarking",
         {
           bookmark_id: prop.id,
         },
