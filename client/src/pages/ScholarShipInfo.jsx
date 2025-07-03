@@ -271,21 +271,20 @@ function ScholarShipInfo() {
               </div>
             </div>
 
-            {/* Take Compatibility Test Widget */}
+            {/* Take Compatibility Checka Widget */}
             <div className="bg-blue-50 rounded-xl p-6 border border-blue-100">
               <h3 className="font-semibold text-blue-800 mb-2">
                 Check Your Eligibility
               </h3>
               <p className="text-blue-600 text-sm mb-4">
-                Take our compatibility test to see if you qualify for this
-                scholarship.
+                Take our compatibility check to find out if you meet the requirements for this scholarship.
               </p>
               <Link
                 to={`/compatibility-test/${id.name}`}
                 state={{ scholarshipId: id.name }}
                 className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition block text-center"
               >
-                Take Compatibility Test
+                Compatibility Check
               </Link>
             </div>
           </div>
