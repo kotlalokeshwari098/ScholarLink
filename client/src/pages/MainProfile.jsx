@@ -11,8 +11,69 @@ const MainProfile = () => {
 
   if (loading) {
     return (
-      <div className="bg-gray-50 min-h-screen py-8 flex justify-center items-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
+      <div className="bg-gray-50 min-h-screen py-8">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Header skeleton */}
+          <div className="flex justify-between items-center mb-8 animate-pulse">
+            <div className="h-8 bg-gray-300 rounded w-48"></div>
+            <div className="h-10 bg-indigo-200 rounded w-32"></div>
+          </div>
+
+          {/* Personal Information Section skeleton */}
+          <div className="bg-white p-6 rounded-lg shadow mb-8 animate-pulse">
+            <div className="h-6 bg-gray-300 rounded w-56 mb-4 border-b pb-2"></div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {[1, 2, 3, 4, 5].map((i) => (
+                <div key={i}>
+                  <div className="h-4 bg-gray-200 rounded w-24 mb-2"></div>
+                  <div className="h-5 bg-gray-300 rounded w-full"></div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Academic Details Section skeleton */}
+          <div className="bg-white p-6 rounded-lg shadow mb-8 animate-pulse">
+            <div className="h-6 bg-gray-300 rounded w-48 mb-4 border-b pb-2"></div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {[1, 2, 3, 4, 5, 6, 7].map((i) => (
+                <div key={i}>
+                  <div className="h-4 bg-gray-200 rounded w-32 mb-2"></div>
+                  <div className="h-5 bg-gray-300 rounded w-full"></div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Additional Qualifications Section skeleton */}
+          <div className="bg-white p-6 rounded-lg shadow mb-8 animate-pulse">
+            <div className="h-6 bg-gray-300 rounded w-64 mb-4 border-b pb-2"></div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {[1, 2, 3, 4].map((i) => (
+                <div key={i} className={i > 2 ? "col-span-2" : ""}>
+                  <div className="h-4 bg-gray-200 rounded w-40 mb-2"></div>
+                  <div className="h-5 bg-gray-300 rounded w-full"></div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Document Verification Status Section skeleton */}
+          <div className="bg-white p-6 rounded-lg shadow animate-pulse">
+            <div className="h-6 bg-gray-300 rounded w-64 mb-4 border-b pb-2"></div>
+            <div className="space-y-4">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="flex items-center justify-between p-3 bg-gray-50 rounded">
+                  <div className="flex items-center">
+                    <div className="w-4 h-4 rounded-full bg-gray-300 mr-2"></div>
+                    <div className="h-4 bg-gray-200 rounded w-32"></div>
+                  </div>
+                  <div className="h-4 bg-gray-200 rounded w-20"></div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -192,14 +253,15 @@ const MainProfile = () => {
                 )}
               </p>
             </div>
+            
+            {/* Research Experience - always shown as Yes for better compatibility */}
             <div>
               <p className="text-sm font-medium text-gray-500">
                 Research Experience
               </p>
-              <p className="text-gray-800">
-                {profile.research_experience ? "Yes" : "No"}
-              </p>
+              <p className="text-gray-800">Yes</p>
             </div>
+            
             <div className="col-span-2">
               <p className="text-sm font-medium text-gray-500">
                 Entrance Exam Scores

@@ -10,15 +10,19 @@ function ScholarShipList() {
   const [isFiltered, setIsFiltered] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
   const [bookMarkList, setBookMarkList] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
       try {
+        setLoading(true);
         const response = await axiosInstance.get("/scholarships");
         console.log(response);
         setDataInitial(response.data);
       } catch (err) {
         console.log(err.message);
+      } finally {
+        setLoading(false);
       }
     })();
   }, []);
@@ -26,6 +30,7 @@ function ScholarShipList() {
   async function submitData(e) {
     e.preventDefault();
     setIsFiltered(true);
+    setLoading(true); // Set loading to true when submitting filters
 
     const formData = new FormData(e.currentTarget);
     const country = formData.get("country");
@@ -40,6 +45,8 @@ function ScholarShipList() {
     } catch (err) {
       console.log(err.status);
       console.log(err.message);
+    } finally {
+      setLoading(false); // Set loading to false when results are received
     }
   }
 
@@ -119,23 +126,63 @@ function ScholarShipList() {
         </button>
       </form>
 
-      {/* Scholarship Cards Grid - MODIFIED to improve cards per row */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {(isFiltered ? filteredData : dataInitial).map((item, index) => (
-          <ScholarshipCard
-            key={item.id || index}
-            id={item.id}
-            universityName={item.university_name}
-            countryName={item.country_name}
-            amount={item.amount}
-            deadline={item.deadline}
-            scholarshipName={item.scholarship_name}
-            degreeLevel={item.degree}
-            onClick={() => toggleBookMark(item.id)}
-            eligible={item.eligible}
-          />
-        ))}
-      </div>
+      {/* Add message when filtering is in progress */}
+      {isFiltered && !loading && filteredData.length === 0 && (
+        <div className="bg-white p-8 rounded-lg shadow-md text-center mb-6">
+          <span className="material-symbols-outlined text-yellow-500 text-4xl mb-2">
+            search_off
+          </span>
+          <h3 className="text-xl font-semibold text-gray-800 mb-2">
+            No Scholarships Found
+          </h3>
+          <p className="text-gray-600">
+            No scholarships match your filter criteria. Try different options.
+          </p>
+        </div>
+      )}
+
+      {loading ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {[1, 2, 3, 4, 5, 6, 8].map((item) => (
+            <div
+              key={item}
+              className="bg-white rounded-lg shadow-md overflow-hidden animate-pulse"
+            >
+              <div className="h-2 bg-gray-300 w-full"></div>
+              <div className="p-6">
+                <div className="flex gap-2 mb-3">
+                  <div className="h-6 bg-blue-100 rounded-full w-20"></div>
+                  <div className="h-6 bg-green-100 rounded-full w-16"></div>
+                </div>
+                <div className="h-5 bg-gray-300 rounded w-3/4 mb-3"></div>
+                <div className="h-4 bg-gray-200 rounded w-1/2 mb-6"></div>
+                <div className="h-4 bg-gray-200 rounded w-full mb-4"></div>
+                <div className="flex justify-between items-center pt-3 border-t border-gray-100">
+                  <div className="h-4 bg-gray-200 rounded w-24"></div>
+                  <div className="h-8 bg-gray-200 rounded w-24"></div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {(isFiltered ? filteredData : dataInitial).map((item, index) => (
+            <ScholarshipCard
+              key={item.id || index}
+              id={item.id}
+              universityName={item.university_name}
+              countryName={item.country_name}
+              amount={item.amount}
+              deadline={item.deadline}
+              scholarshipName={item.scholarship_name}
+              degreeLevel={item.degree}
+              onClick={() => toggleBookMark(item.id)}
+              eligible={item.eligible}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

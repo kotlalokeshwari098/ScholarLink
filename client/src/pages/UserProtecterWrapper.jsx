@@ -40,7 +40,16 @@ const UserProtectWrapper = ({ children }) => {
   }, [navigate, setUser, token]);
 
   if (isLoading) {
-    return <div>Loading....</div>;
+    return (
+      <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
+        <div className="animate-pulse flex flex-col items-center">
+          <div className="rounded-full bg-gray-300 h-16 w-16 mb-4"></div>
+          <div className="h-4 bg-gray-300 rounded w-48 mb-3"></div>
+          <div className="h-3 bg-gray-300 rounded w-32 mb-6"></div>
+        </div>
+        <div className="text-gray-500 mt-4 text-sm">Setting up your experience...</div>
+      </div>
+    );
   }
 
   return <>{!isLoading && children}</>;

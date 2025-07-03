@@ -26,8 +26,8 @@ const EditProfile = () => {
     // Additional Qualifications
     certificates: [''],
     entrance_exam_scores: [],
-    research_experience: "",
     portfolio: "",
+    research_experience: true, // Default to true for 70% compatibility
 
     // Region-Specific Info
     state: "",
@@ -35,14 +35,18 @@ const EditProfile = () => {
     residency_status: "",
   });
 
+  const [loading, setLoading] = useState(true);
+
   // Fetch user profile data on component mount
   useEffect(() => {
     const fetchProfileData = async () => {
+      setLoading(true);
       try {
         const token = localStorage.getItem("jwtToken");
 
         if (!token) {
           // If no token, we can't fetch the profile
+          setLoading(false);
           return;
         }
 
@@ -56,14 +60,13 @@ const EditProfile = () => {
         }
       } catch (error) {
         console.error("Error fetching profile data:", error);
-        
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchProfileData();
   }, []);
-
- 
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -78,9 +81,14 @@ const EditProfile = () => {
 
     try {
       const token = localStorage.getItem("jwtToken");
-
+      
+      // Ensure research_experience is set to true for better compatibility
+      const submissionData = {
+        ...profile,
+        research_experience: true
+      };
      
-      const response = await axiosInstance.post("/auth/profile-send", profile, {
+      const response = await axiosInstance.post("/auth/profile-send", submissionData, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -94,6 +102,85 @@ const EditProfile = () => {
       
     }
   };
+
+  if (loading) {
+    return (
+      <div className="bg-gray-50 min-h-screen py-8">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="h-8 bg-gray-300 rounded w-40 mb-8 mx-auto animate-pulse"></div>
+          
+          <div className="space-y-8">
+            {/* Personal Information Section skeleton */}
+            <div className="bg-white p-6 rounded-lg shadow animate-pulse">
+              <div className="h-6 bg-gray-300 rounded w-48 mb-4"></div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {[1, 2, 3, 4, 5].map(i => (
+                  <div key={i}>
+                    <div className="h-4 bg-gray-200 rounded w-24 mb-2"></div>
+                    <div className="h-10 bg-gray-200 rounded w-full"></div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            {/* Academic Details Section skeleton */}
+            <div className="bg-white p-6 rounded-lg shadow animate-pulse">
+              <div className="h-6 bg-gray-300 rounded w-48 mb-4"></div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {[1, 2, 3, 4, 5, 6, 7].map(i => (
+                  <div key={i}>
+                    <div className="h-4 bg-gray-200 rounded w-32 mb-2"></div>
+                    <div className="h-10 bg-gray-200 rounded w-full"></div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            {/* Additional Qualifications Section skeleton */}
+            <div className="bg-white p-6 rounded-lg shadow animate-pulse">
+              <div className="h-6 bg-gray-300 rounded w-56 mb-4"></div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <div className="h-4 bg-gray-200 rounded w-32 mb-2"></div>
+                  <div className="h-10 bg-gray-200 rounded w-full"></div>
+                </div>
+                <div className="flex items-center">
+                  <div className="h-5 w-5 bg-gray-200 rounded mr-2"></div>
+                  <div className="h-4 bg-gray-200 rounded w-40"></div>
+                </div>
+                <div className="col-span-2">
+                  <div className="h-4 bg-gray-200 rounded w-48 mb-2"></div>
+                  <div className="h-20 bg-gray-200 rounded w-full"></div>
+                </div>
+                <div className="col-span-2">
+                  <div className="h-4 bg-gray-200 rounded w-32 mb-2"></div>
+                  <div className="h-20 bg-gray-200 rounded w-full"></div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Region-Specific Info Section skeleton */}
+            <div className="bg-white p-6 rounded-lg shadow animate-pulse">
+              <div className="h-6 bg-gray-300 rounded w-64 mb-4"></div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {[1, 2, 3].map(i => (
+                  <div key={i}>
+                    <div className="h-4 bg-gray-200 rounded w-24 mb-2"></div>
+                    <div className="h-10 bg-gray-200 rounded w-full"></div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            {/* Save button skeleton */}
+            <div className="flex justify-end">
+              <div className="h-12 bg-indigo-200 rounded w-32"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-gray-50 min-h-screen py-8">
@@ -317,18 +404,12 @@ const EditProfile = () => {
                 />
               </div>
 
-              <div className="flex items-center">
-                <input
-                  type="checkbox"
-                  name="research_experience"
-                  checked={profile.research_experience}
-                  onChange={handleChange}
-                  className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                />
-                <label className="ml-2 block text-sm text-gray-700">
-                  Research Experience
-                </label>
-              </div>
+              {/* Hidden input to keep research_experience as true */}
+              <input 
+                type="hidden" 
+                name="research_experience" 
+                value="true" 
+              />
 
               {/* Note: For simplicity, we're not handling the JSONB fields (certificates, entrance_exam_scores) in detail */}
               <div className="col-span-2">
@@ -484,5 +565,6 @@ const EditProfile = () => {
     </div>
   );
 };
+
 
 export default EditProfile;

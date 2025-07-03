@@ -56,16 +56,6 @@ function HomePage() {
                   />
                 </svg>
               </Link>
-
-              <Link
-                to="/compatibility-check"
-                className="relative overflow-hidden group bg-transparent border-2 border-white hover:border-blue-300 text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300"
-              >
-                <span className="relative z-10 group-hover:text-blue-700 transition-colors duration-300">
-                  Take Compatibility Test
-                </span>
-                <div className="absolute inset-0 w-full h-full bg-white transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300"></div>
-              </Link>
             </div>
 
             <div className="mt-10 flex items-center">
@@ -206,27 +196,61 @@ function HomePage() {
           </h2>
 
           <div className="flex overflow-x-auto pb-8 gap-6 hide-scrollbar">
-            {/* Scholarship Preview Cards */}
-            {[1, 2, 3, 4, 5].map((item) => (
+            {/* Updated Scholarship Preview Cards with more realistic data */}
+            {[{
+              country: "United States",
+              type: "Undergraduate",
+              name: "Fulbright Foreign Student Program",
+              description: "Full tuition, living stipend, and travel allowance for international students",
+              deadline: "Oct 15, 2023"
+            },
+            {
+              country: "United Kingdom",
+              type: "Master's",
+              name: "Chevening Scholarships",
+              description: "Fully-funded scholarships for outstanding emerging leaders worldwide",
+              deadline: "Nov 2, 2023"
+            },
+            {
+              country: "Australia",
+              type: "PhD",
+              name: "Australia Awards Scholarships",
+              description: "Long-term development scholarships for students from developing countries",
+              deadline: "Dec 31, 2023"
+            },
+            {
+              country: "Canada",
+              type: "Undergraduate/Graduate",
+              name: "Vanier Canada Graduate Scholarships",
+              description: "$50,000 per year for doctoral students demonstrating leadership skills",
+              deadline: "Jan 15, 2024"
+            },
+            {
+              country: "Germany",
+              type: "All Levels",
+              name: "DAAD Scholarships",
+              description: "Various scholarships for international students in German universities",
+              deadline: "Mar 10, 2024"
+            }].map((scholarship, index) => (
               <div
-                key={item}
+                key={index}
                 className="flex-shrink-0 w-80 bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100"
               >
                 <div className="h-2 bg-gradient-to-r from-blue-500 to-indigo-600"></div>
                 <div className="p-6">
                   <div className="flex gap-2 mb-3">
                     <span className="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full font-medium">
-                      Singapore
+                      {scholarship.country}
                     </span>
                     <span className="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full font-medium">
-                      Master's
+                      {scholarship.type}
                     </span>
                   </div>
                   <h3 className="font-bold text-xl mb-3 text-gray-800">
-                    NUS Research Scholarship
+                    {scholarship.name}
                   </h3>
                   <p className="text-sm text-gray-600 mb-4">
-                    Full tuition + monthly stipend for exceptional students
+                    {scholarship.description}
                   </p>
                   <div className="flex justify-between items-center pt-3 border-t border-gray-100">
                     <span className="text-xs font-medium text-red-600 flex items-center">
@@ -244,7 +268,7 @@ function HomePage() {
                           d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                         />
                       </svg>
-                      Deadline: Jan 31, 2025
+                      Deadline: {scholarship.deadline}
                     </span>
                     <Link
                       to="/scholarshiplist"
